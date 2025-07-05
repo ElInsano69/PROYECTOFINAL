@@ -1,0 +1,102 @@
+/* General */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #002147;
+}
+
+/* Mensaje de bienvenida */
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 33, 71, 0.9);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+
+.welcome-overlay.fade-out {
+  opacity: 0;
+}
+
+/* Barra superior */
+.top-bar {
+  background-color: #002147;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+  z-index: 10;
+}
+.top-bar img {
+  height: 48px;
+}
+.top-bar span {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Botón de menú hamburguesa */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.menu-btn .bar {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Menú lateral */
+.sidebar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 220px;
+  background-color: #002147;
+  height: 100%;
+  padding-top: 20px;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  margin: 15px 0;
+  text-align: center;
+}
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Contenido principal */
+.content {
+  margin-top: 100px;
+  padding: 20px;
+  text-align: center;
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #002147;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Barra superior */
+    .top-bar {
+      background-color: #002147;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .top-bar img {
+      height: 48px;
+    }
+
+    .top-bar span {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    /* Icono de menú hamburguesa */
+    .menu-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .menu-btn .bar {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    /* Menú lateral (opciones) */
+    .sidebar {
+      position: fixed;
+      top: 70px;
+      left: -250px; /* Panel oculto por defecto */
+      width: 250px;
+      height: 100%;
+      background-color: #002147;
+      padding-top: 20px;
+      transition: left 1s ease; /* Tiempo de transición aumentado a 1s */
+      z-index: 10;
+    }
+
+    .sidebar.show {
+      left: 0; /* Panel se despliega */
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      color: white;
+    }
+
+    .sidebar ul li {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Circulito de usuario */
+    .user-circle {
+      width: 60px;
+      height: 60px;
+      background-color: white;
+      color: #002147;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 20px; /* Posición fija */
+      right: 20px; /* Posición fija */
+      z-index: 20; /* El círculo debe estar encima del panel */
+    }
+
+    /* Panel de usuario (desplegado desde el lado derecho) */
+    .user-info-panel {
+      position: fixed;
+      top: 0;
+      right: -350px; /* Panel fuera de la pantalla por defecto */
+      transform: translateY(70px);
+      background-color: #ffffff;
+      border: 3px solid #002147; /* Borde azul */
+      border-radius: 8px;
+      padding: 40px 30px;
+      width: 350px;
+      display: none;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+      z-index: 15;
+    }
+
+    .user-info-panel.show {
+      right: 0; /* Panel se mueve hacia la derecha */
+      display: block;
+    }
+
+    /* Fondo semitransparente */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 5;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .user-info-panel h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #002147;
+      text-align: center;
+    }
+
+    .user-info-panel p {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    /* Botón de cerrar el panel */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #002147;
+      cursor: pointer;
+    }
+
+    /* Contenido del dashboard */
+    .dashboard-container {
+      margin-top: 120px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .dashboard-container h2 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo para el input de imagen */
+    .profile-image-input {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-image-input input {
+      display: none;
+    }
+
+    .profile-image-input label {
+      background-color: #002147;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .profile-image-input img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior con el logo -->
+  <div class="top-bar">
+    <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+    <span>Fundación Kinal</span>
+  </div>
+
+  <!-- Botón de menú hamburguesa -->
+  <div class="menu-btn" id="menu-btn">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- Menú lateral (opciones) -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Perfil</a></li>
+      <li><a href="#">Configuraciones</a></li>
+      <li><a href="#">Cerrar sesión</a></li>
+    </ul>
+  </div>
+
+  <!-- Circulito de usuario -->
+  <div class="user-circle" id="user-circle">
+    <span id="user-initials">U</span>
+  </div>
+
+  <!-- Fondo semitransparente -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Panel con la información del usuario -->
+  <div class="user-info-panel" id="user-info-panel">
+    <button class="close-btn" id="close-panel">×</button>
+    <h3>Información del Usuario</h3>
+    
+    <!-- Imagen de perfil -->
+    <div class="profile-image-input">
+      <input type="file" id="profile-image" accept="image/*" onchange="loadImage(event)" />
+      <label for="profile-image">Cambiar Foto</label>
+    </div>
+
+    <!-- Foto de perfil -->
+    <img id="profile-image-display" src="" alt="Foto de perfil" style="display:none;" />
+    
+    <p><strong>Nombre:</strong> <span id="user-name">Juan Pérez</span></p>
+    <p><strong>Email:</strong> <span id="user-email">juanperez@example.com</span></p>
+  </div>
+
+  <!-- Contenido del dashboard -->
+  <div class="dashboard-container">
+    <h2>Bienvenido al Dashboard</h2>
+    <p>Aquí puedes ver tu contenido personalizado.</p>
+  </div>
+
+  <script>
+    const userCircle = document.getElementById('user-circle');
+    const userInfoPanel = document.getElementById('user-info-panel');
+    const overlay = document.getElementById('overlay');
+    const closePanelButton = document.getElementById('close-panel');
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const profileImageInput = document.getElementById('profile-image');
+    const profileImageDisplay = document.getElementById('profile-image-display');
+    const userInitials = document.getElementById('user-initials');
+
+    // Mostrar el nombre y el email del usuario desde el localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
+      if (usuario) {
+        // Mostrar las iniciales del usuario en el círculo
+        const initials = usuario.nombre.split(' ').map(word => word.charAt(0).toUpperCase()).join('');
+        userInitials.textContent = initials;
+
+        // Mostrar nombre y email del usuario en el panel
+        document.getElementById('user-name').textContent = `${usuario.nombre} ${usuario.apellido}`;
+        document.getElementById('user-email').textContent = usuario.email;
+      }
+    });
+
+    // Toggle para abrir/cerrar el menú hamburguesa
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+
+    // Abrir panel de usuario
+    userCircle.addEventListener('click', () => {
+      userInfoPanel.classList.add('show');
+      overlay.classList.add('show');
+    });
+
+    // Cerrar el panel de usuario
+    closePanelButton.addEventListener('click', () => {
+      userInfoPanel.classList.remove('show');
+      overlay.classList.remove('show');
+    });
+
+    // Función para mostrar la imagen seleccionada
+    function loadImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        profileImageDisplay.src = reader.result;
+        profileImageDisplay.style.display = 'block'; // Mostrar la imagen seleccionada
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+
+</body>
+</html>
