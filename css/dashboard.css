@@ -1,102 +1,175 @@
 /* General */
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: white;
-  color: #002147;
+    margin: 0;
+    padding: 0; /* Asegurarse de que no haya padding en el body */
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5; /* Fondo general más claro */
+    color: #002147;
+    display: flex; /* Usamos flexbox para el layout del dashboard */
+    min-height: 100vh; /* Asegura que ocupe al menos la altura de la ventana */
+    overflow-x: hidden; /* Evita el scroll horizontal en todo el body */
 }
 
-/* Mensaje de bienvenida */
-.welcome-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 33, 71, 0.9);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 1s ease;
+/* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
+.dashboard-container {
+    display: flex;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    min-height: 100vh; /* Asegura que el contenedor se estire a la altura de la ventana */
 }
 
-.welcome-overlay.fade-out {
-  opacity: 0;
-}
-
-/* Barra superior */
-.top-bar {
-  background-color: #002147;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  position: relative;
-  z-index: 10;
-}
-.top-bar img {
-  height: 48px;
-}
-.top-bar span {
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-/* Botón de menú hamburguesa */
-.menu-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-  z-index: 11;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.menu-btn .bar {
-  width: 30px;
-  height: 4px;
-  background-color: white;
-  border-radius: 2px;
-}
-
-/* Menú lateral */
+/* Sidebar (Menú lateral) */
 .sidebar {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  width: 220px;
-  background-color: #002147;
-  height: 100%;
-  padding-top: 20px;
-  z-index: 10;
-  transition: transform 0.3s ease;
+    width: 250px;
+    background-color: #002147;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Sombra para dar profundidad */
+    flex-shrink: 0; /* Evita que el sidebar se encoja */
 }
-.sidebar.hidden {
-  transform: translateX(-100%);
+.sidebar .logo {
+    margin-bottom: 30px;
+    text-align: center;
 }
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.sidebar .logo img {
+    height: 60px;
 }
-.sidebar ul li {
-  margin: 15px 0;
-  text-align: center;
+.sidebar .user-profile {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2); /* Separador */
+    width: 80%; /* Ancho del contenido del perfil */
 }
-.sidebar ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
+.sidebar .user-initials {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    color: #002147;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 10px auto; /* Centrar y margen inferior */
+}
+.sidebar .user-profile p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar nav ul li {
+    margin: 10px 0;
+}
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+    background-color: #004080;
+    border-radius: 5px;
 }
 
-/* Contenido principal */
-.content {
-  margin-top: 100px;
-  padding: 20px;
-  text-align: center;
+/* Contenido Principal (Main Content) */
+.main-content {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    padding: 20px;
+    overflow-y: auto; /* Permite scroll si el contenido es largo */
+}
+.main-header {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+.main-header h1 {
+    margin: 0;
+    color: #002147;
+}
+
+/* Secciones de Contenido */
+.content-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Estilos para las tarjetas del dashboard (Home section) */
+/* Se aplica a un contenedor flex para las tarjetas */
+.dashboard-cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Estilo para cada tarjeta individual */
+.card {
+    background-color: #e6e9ed;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+}
+.card h3 {
+    color: #002147;
+    margin-top: 0;
+}
+.card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para la tabla de usuarios */
+.users-table-container {
+    overflow-x: auto;
+}
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+#users-table th, #users-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+#users-table th {
+    background-color: #002147;
+    color: white;
+    font-weight: bold;
+}
+#users-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+#users-table tr:hover {
+    background-color: #e6e6e6;
+}
+
+/* Mensajes de error en la tabla */
+#users-error-message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
 }

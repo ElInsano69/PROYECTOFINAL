@@ -4,168 +4,39 @@
 <meta charset="UTF-8" />
 <title>Sistema Login - Fundación Kinal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-  body {
-    margin: 0; padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('img/instalacion-kinal.PNG');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    color: #002147;
-    overflow-x: hidden;
-  }
-  .header {
-    background-color: #002147;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-  }
-  .header img {
-    height: 48px;
-  }
-  .header span {
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-  .login-container {
-    background-color: transparent;
-    width: 320px;
-    margin: 350px auto 0 auto;
-    padding: 25px 30px 30px 30px;
-    border-radius: 8px;
-    border: 2px solid rgba(0, 33, 71, 0.6);
-    box-shadow: 0 0 15px rgba(0, 33, 71, 0.6);
-    animation: floating 4s ease-in-out infinite;
-  }
-  @keyframes floating {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-  .login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 700;
-    color: white;
-    background-color: #002147;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  .login-container input[type="email"],
-  .login-container input[type="password"],
-  .login-container input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    outline: none;
-    box-sizing: border-box;
-    background-color: rgba(255,255,255,0.9);
-  }
-  .login-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #002147;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .login-container button:hover {
-    background-color: #004080;
-  }
-  .switch-link {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #002147;
-    cursor: pointer;
-    background: none;
-    border: none;
-    text-decoration: underline;
-  }
-  .error-message {
-    color: red;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 2px white;
-  }
-  #main-content {
-    transition: transform 0.8s ease, opacity 0.8s ease;
-  }
-  .slide-out-left {
-    transform: translateX(-150%);
-    opacity: 0;
-  }
-  /* Mensaje bienvenida pantalla completa */
-  #welcome-screen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 33, 71, 0.85);
-    color: white;
-    font-size: 4rem;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s ease;
-    white-space: nowrap;
-    z-index: 9999;
-  }
-  #welcome-screen.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 <header class="header">
-  <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
-  <span>Fundación Kinal</span>
+  <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+  <span>Fundación Kinal</span>
 </header>
 
 <div id="main-content">
-  <!-- Formulario de Login -->
-  <div class="login-container" id="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form id="login-form" autocomplete="off">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="clave" placeholder="Contraseña" required />
-      <div class="error-message" id="login-error"></div>
-      <button type="submit">Entrar</button>
-    </form>
-    <button class="switch-link" id="show-register">¿No tienes cuenta? Regístrate</button>
-  </div>
+    <div class="login-container" id="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form id="login-form" autocomplete="off">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="clave" placeholder="Contraseña" required />
+      <div class="error-message" id="login-error"></div>
+      <button type="submit">Entrar</button>
+    </form>
+    <button class="switch-link" id="show-register">¿No tienes cuenta? Regístrate</button>
+  </div>
 
-  <!-- Formulario de Registro -->
-  <div class="login-container" id="register-container" style="display:none;">
-    <h2>Registrarse</h2>
-    <form id="register-form" autocomplete="off">
-      <input type="text" name="nombre" placeholder="Nombre" required />
+    <div class="login-container" id="register-container" style="display:none;">
+    <h2>Registrarse</h2>
+    <form id="register-form" autocomplete="off">
+      <input type="text" name="nombre" placeholder="Nombre" required />
       <input type="text" name="apellido" placeholder="Apellido" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="clave" placeholder="Contraseña" required />
-      <input type="password" name="clave2" placeholder="Repetir Contraseña" required />
-      <div class="error-message" id="register-error"></div>
-      <button type="submit">Registrarse</button>
-    </form>
-    <button class="switch-link" id="show-login">¿Ya tienes cuenta? Inicia sesión</button>
-  </div>
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="clave" placeholder="Contraseña" required />
+      <input type="password" name="clave2" placeholder="Repetir Contraseña" required />
+      <div class="error-message" id="register-error"></div>
+      <button type="submit">Registrarse</button>
+    </form>
+    <button class="switch-link" id="show-login">¿Ya tienes cuenta? Inicia sesión</button>
+  </div>
 </div>
 
 <div id="welcome-screen"></div>
@@ -177,8 +48,18 @@
   const showRegisterBtn = document.getElementById('show-register');
   const showLoginBtn = document.getElementById('show-login');
   const welcomeScreen = document.getElementById('welcome-screen');
-  
-  // Mostrar el formulario de login o registro
+
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const registerForm = document.getElementById('register-form');
+  const registerError = document.getElementById('register-error');
+
+  // --- ¡¡¡IMPORTANTE!!! AJUSTA ESTA URL ---
+  // Si tu backend está corriendo LOCALMENTE (en tu computadora), usa: 'http://localhost:3000'
+  // Si tu backend está desplegado en Render (o similar), usa su URL pública, por ejemplo: 'https://kinal-backend-api.onrender.com'
+  const BACKEND_URL = 'http://localhost:3000'; // <--- ¡CAMBIA ESTO SEGÚN DÓNDE ESTÉ TU BACKEND!
+
+  // Funciones de UI para cambiar entre formularios y limpiar mensajes
   showRegisterBtn.addEventListener('click', () => {
     loginContainer.style.display = 'none';
     registerContainer.style.display = 'block';
@@ -191,18 +72,18 @@
     clearMessages();
   });
 
-  function clearMessages(){
-    document.getElementById('login-error').textContent = '';
-    document.getElementById('register-error').textContent = '';
+  function clearMessages() {
+    loginError.textContent = '';
+    registerError.textContent = '';
   }
 
-  // Función para mostrar mensaje de bienvenida
-  function showWelcome(name) {
+  // Función para mostrar mensaje de bienvenida y redirigir
+  function showWelcome(userDisplayName) {
     mainContent.classList.add('slide-out-left');
     setTimeout(() => {
       mainContent.style.display = 'none';
 
-      welcomeScreen.textContent = `BIENVENIDO ${name.toUpperCase()}`;
+      welcomeScreen.textContent = `BIENVENIDO ${userDisplayName.toUpperCase()}`;
       welcomeScreen.classList.add('show');
 
       setTimeout(() => {
@@ -215,40 +96,40 @@
     }, 800);
   }
 
-  // Verifica si el usuario ya está logueado
-  if(localStorage.getItem('usuarioNombre')) {
-    const nombre = localStorage.getItem('usuarioNombre');
-    showWelcome(nombre);
-  } else {
-    loginContainer.style.display = 'block';  // Mostrar el formulario de login
-    registerContainer.style.display = 'none';  // Asegurarnos de que el registro no esté visible
-  }
-
-  const loginForm = document.getElementById('login-form');
-  const loginError = document.getElementById('login-error');
-
-  loginForm.addEventListener('submit', (e) => {
+  // --- Manejo del Login con Backend ---
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = loginForm.email.value.trim();
     const clave = loginForm.clave.value.trim();
 
-    loginError.textContent = '';
+    clearMessages();
 
-    if(email === 'admin@kinal.edu.gt' && clave === 'admin123'){
-      localStorage.setItem('usuarioNombre', 'Administrador');
-      showWelcome('Administrador');
-    } else if(email === 'test@example.com' && clave === '123456'){
-      localStorage.setItem('usuarioNombre', 'Usuario Demo');
-      showWelcome('Usuario Demo');
-    } else {
-      loginError.textContent = 'Email o contraseña incorrectos.';
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, clave })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('logueado', 'si');
+        localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Guarda el objeto completo del usuario
+        showWelcome(data.user.nombre); // Usa el nombre del usuario recibido del backend
+      } else {
+        loginError.textContent = data.message || 'Error al iniciar sesión. Intenta de nuevo.';
+      }
+    } catch (error) {
+      console.error('Error de red o servidor:', error);
+      loginError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
     }
   });
 
-  const registerForm = document.getElementById('register-form');
-  const registerError = document.getElementById('register-error');
-
-  registerForm.addEventListener('submit', (e) => {
+  // --- Manejo del Registro con Backend ---
+  registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nombre = registerForm.nombre.value.trim();
     const apellido = registerForm.apellido.value.trim();
@@ -256,23 +137,53 @@
     const clave = registerForm.clave.value.trim();
     const clave2 = registerForm.clave2.value.trim();
 
-    registerError.textContent = '';
+    clearMessages();
 
-    if(clave !== clave2){
+    if (clave !== clave2) {
       registerError.textContent = 'Las contraseñas no coinciden.';
       return;
     }
 
-    if(!nombre || !apellido || !email || !clave){
-      registerError.textContent = 'Por favor llena todos los campos.';
+    if (!nombre || !apellido || !email || !clave) {
+      registerError.textContent = 'Por favor, llena todos los campos.';
       return;
     }
 
-    localStorage.setItem('usuarioNombre', nombre);
-    showWelcome(nombre);
-    registerForm.reset();
-    registerContainer.style.display = 'none';
-    loginContainer.style.display = 'block';
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, apellido, email, clave })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registro exitoso. ¡Ahora puedes iniciar sesión!');
+        registerForm.reset(); // Limpia el formulario
+        registerContainer.style.display = 'none'; // Oculta el formulario de registro
+        loginContainer.style.display = 'block'; // Muestra el de login
+        clearMessages();
+      } else {
+        registerError.textContent = data.message || 'Error al registrar usuario. Intenta de nuevo.';
+      }
+    } catch (error) {
+      console.error('Error de red o servidor:', error);
+      registerError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
+    }
+  });
+
+  // Verifica si el usuario ya está logueado al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual')); // Recupera el objeto de usuario
+    if (localStorage.getItem('logueado') === 'si' && usuarioActual && usuarioActual.nombre) {
+      showWelcome(usuarioActual.nombre); // Usa el nombre guardado para la bienvenida
+    } else {
+      loginContainer.style.display = 'block';
+      registerContainer.style.display = 'none';
+    }
   });
 </script>
 </body>

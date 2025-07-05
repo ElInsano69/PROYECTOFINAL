@@ -3,11 +3,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('../img/instalacion-kinal.PNG');
+    background-image: url('../img/instalacion-kinal.PNG'); /* Ajustada la ruta para que sea relativa desde css/style.css a img/ */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
+    color: #002147;
+    overflow-x: hidden;
 }
 
 /* Barra superior */
@@ -29,45 +31,56 @@ body {
     letter-spacing: 1px;
 }
 
-/* Contenedor login sin fondo ni blur */
-
+/* Contenedor login principal (aplicable a login y registro) */
+.login-container {
+    background-color: transparent;
+    width: 320px;
+    margin: 100px auto 0 auto; /* Subido y centrado verticalmente */
+    padding: 8px 30px 8px 30px; /* Reducido el padding superior e inferior aún más */
+    border-radius: 8px;
+    border: 2px solid rgba(0, 33, 71, 0.6);
+    box-shadow: 0 0 15px rgba(0, 33, 71, 0.6);
+    animation: floating 4s ease-in-out infinite;
+}
 
 /* Animación flotante */
-@keyframes float {
+@keyframes floating {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-15px);
     }
 }
 
-/* Título */
-.login-title {
+/* Título de los formularios (Iniciar Sesión / Registrarse) */
+.login-container h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reducido un poco */
     font-weight: 700;
     color: white;
     background-color: #002147;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 1.3rem;
+    padding: 8px; /* Reducido padding del título */
+    border-radius: 4px;
+    font-size: 1.2rem; /* Reducido tamaño de fuente del título */
 }
 
-/* Inputs */
-.login-container input {
+/* Inputs de los formularios */
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container input[type="text"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 18px;
+    padding: 8px; /* Reducido padding de los inputs */
+    margin-bottom: 6px; /* <-- REDUCIDO AQUÍ: Era 8px, ahora 6px */
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 0.95rem; /* Ligeramente reducido el tamaño de la fuente */
     outline: none;
     box-sizing: border-box;
-    background-color: rgba(255,255,255,0.95);
+    background-color: rgba(255,255,255,0.9);
 }
 
-/* Botones */
+/* Botones de los formularios */
 .login-container button {
     width: 100%;
     padding: 10px;
@@ -84,23 +97,58 @@ body {
     background-color: #004080;
 }
 
-/* Enlaces */
+/* Enlaces de cambio de formulario (botones de "switch") */
 .switch-link {
-    margin-top: 15px;
+    margin-top: 8px; /* <-- REDUCIDO AQUÍ: Era 10px, ahora 8px */
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Ligeramente reducido el tamaño de la fuente */
     color: #002147;
     cursor: pointer;
     background: none;
     border: none;
     text-decoration: underline;
+    display: block; /* Asegura que ocupe su propia línea */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
 }
 
-/* Errores */
+/* Mensajes de error */
 .error-message {
     color: red;
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Ligeramente reducido el tamaño de la fuente */
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reducido un poco */
     text-shadow: 1px 1px 2px white;
+}
+
+/* Transición para el contenido principal (para la animación de salida) */
+#main-content {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+.slide-out-left {
+    transform: translateX(-150%);
+    opacity: 0;
+}
+
+/* Mensaje de bienvenida en pantalla completa */
+#welcome-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 33, 71, 0.85);
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    white-space: nowrap;
+    z-index: 9999;
+}
+#welcome-screen.show {
+    opacity: 1;
+    pointer-events: auto;
 }
