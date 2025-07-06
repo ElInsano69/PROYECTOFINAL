@@ -24,7 +24,7 @@
           <p><strong><span id="dropdown-user-name"></span></strong></p>
           <p><span id="dropdown-user-email"></span></p>
           <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
-          <button id="dropdown-logout-button">Cerrar sesión</button>
+          <button id="dropdown-logout-button">Cerrar sesión</button> <!-- Este es el botón que se utiliza para cerrar sesión -->
         </div>
       </div>
   </header>
@@ -38,14 +38,14 @@
         <ul>
           <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
           <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
-          <!-- Eliminar Reportes y Configuración -->
+          <!-- Se eliminaron Reportes y Configuración -->
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
       <header class="section-header">
-        <h1>Bienvenido al Dashboard</h1>
+        <h1>Bienvenido al la Pagina principal</h1>
       </header>
 
       <section id="dashboard-home-section" class="content-section active">
@@ -97,7 +97,7 @@
     const dropdownUserName = document.getElementById('dropdown-user-name');
     const dropdownUserEmail = document.getElementById('dropdown-user-email');
     const dropdownUserRole = document.getElementById('dropdown-user-role');
-    const dropdownLogoutButton = document.getElementById('dropdown-logout-button');
+    const dropdownLogoutButton = document.getElementById('dropdown-logout-button'); // Este es el botón de cerrar sesión
 
     const linkDashboard = document.getElementById('link-dashboard');
     const linkAdminUsers = document.getElementById('link-admin-users');
