@@ -21,8 +21,8 @@ body {
     padding: 0 20px;
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 20;
+    position: relative; /* Importante para que z-index funcione */
+    z-index: 9999; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar visibilidad y clicabilidad */
 }
 .global-header .header-left-section {
     display: flex;
@@ -47,13 +47,14 @@ body {
     font-size: 1.8rem;
     color: white;
     margin-right: 10px;
+    z-index: 10000; /* Aún más alto que el header para asegurarse */
 }
 
 /* Perfil de Usuario en la esquina superior derecha del global-header */
 .user-profile-widget {
     position: relative;
     cursor: pointer;
-    z-index: 25; /* Aumentado, para asegurar que esté por encima de la sección izquierda del header */
+    z-index: 10000; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar visibilidad y clicabilidad */
 }
 .user-profile-widget .user-initials {
     width: 50px;
@@ -68,8 +69,8 @@ body {
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: transform 0.2s ease-in-out;
-    /* Puedes añadir padding aquí si el área de toque sigue siendo un problema */
-    /* padding: 5px; */
+    /* Considera añadir un poco de padding para aumentar el área de toque si es necesario */
+    /* padding: 5px; Esto aumentaría el tamaño visual del círculo */
 }
 .user-profile-widget .user-initials:hover {
     transform: scale(1.05);
@@ -89,7 +90,7 @@ body {
     display: none;
     flex-direction: column;
     gap: 8px;
-    z-index: 1003; /* AUMENTADO DE NUEVO para garantizar máxima visibilidad sobre todo (sidebar 1001) */
+    z-index: 10001; /* Z-INDEX EXTREMADAMENTE ALTO, encima de todo */
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -134,6 +135,7 @@ body {
     flex-grow: 1;
     width: 100%;
     position: relative;
+    z-index: 1; /* Asegurar que el contenedor principal esté por debajo del header */
 }
 
 /* Sidebar (Menú lateral) */
@@ -151,7 +153,7 @@ body {
     position: sticky; /* En escritorio se pega */
     top: 0;
     height: calc(100vh - 70px);
-    z-index: 10; /* Z-index normal para escritorio */
+    z-index: 10; /* Z-index normal para escritorio, pero será anulado en móvil si es necesario */
     transform: translateX(0); /* Por defecto visible en escritorio */
 }
 
@@ -162,7 +164,7 @@ body {
     height: 100vh; /* Ocupa toda la altura de la pantalla en móvil */
     top: 0;
     left: 0;
-    z-index: 1001; /* Asegura que se vea por encima del contenido principal en móvil */
+    z-index: 9998; /* Un Z-index alto para cuando está oculto y fuera del flujo, pero por debajo de elementos interactivos clave */
 }
 
 
@@ -202,12 +204,12 @@ body {
 /* Botón de cerrar el sidebar (siempre visible por defecto) */
 #sidebar-toggle-close {
     display: block; /* Muestra el botón por defecto en todas las pantallas */
-    position: absolute;
+    position: absolute; /* Debe ser absolute dentro del sidebar */
     top: 15px;
     right: 15px;
     color: white;
     font-size: 1.5rem;
-    z-index: 100;
+    z-index: 10000; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar clicabilidad */
 }
 
 
@@ -219,6 +221,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: margin-left 0.3s ease;
+    z-index: 5; /* Asegurar que esté por debajo del sidebar */
 }
 .section-header {
     background-color: white;
@@ -382,6 +385,11 @@ body {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        /* En móvil, el header debe ser fixed y tener un z-index muy alto */
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
     }
     .global-header .header-left-section {
         gap: 8px;
@@ -415,18 +423,18 @@ body {
         left: 0;
         transform: translateX(-250px); /* Oculto fuera de la pantalla por defecto en móvil */
         height: 100vh;
-        padding-top: 60px;
-        z-index: 1001;
+        padding-top: 60px; /* Dar espacio para el header fijo */
+        z-index: 9997; /* Un poco menos que el header, pero aún muy alto */
         box-shadow: 2px 0 10px rgba(0,0,0,0.5);
     }
     .sidebar.active {
         transform: translateX(0); /* Se desliza para aparecer */
     }
 
-    #sidebar-toggle-close {
-        font-size: 1.8rem;
+    /* Ajuste para el main content para que no quede debajo del header fijo */
+    .dashboard-container {
+        padding-top: 50px; /* Altura del header en móvil */
     }
-
     .main-content {
         padding: 10px;
     }
@@ -486,14 +494,18 @@ body {
         font-size: 1.2rem;
     }
     .user-dropdown-panel {
-        min-width: 180px; /* Ajuste final */
+        min-width: 160px; /* Ajuste final */
     }
     .sidebar {
         width: 220px;
         transform: translateX(-220px);
+        padding-top: 50px; /* Ajuste para el header más pequeño */
     }
     .sidebar.active {
         transform: translateX(0);
+    }
+    .dashboard-container {
+        padding-top: 45px; /* Altura del header en móvil muy pequeño */
     }
     .section-header h1 {
         font-size: 1.2rem;
