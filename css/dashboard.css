@@ -21,8 +21,8 @@ body {
     padding: 0 20px;
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: relative; /* Esencial para el posicionamiento absoluto del dropdown */
-    z-index: 20; /* Asegura que esté por encima de otros elementos */
+    position: relative;
+    z-index: 20;
 }
 .global-header .header-left-section {
     display: flex;
@@ -40,7 +40,7 @@ body {
     text-align: center;
 }
 
-/* Botón de hamburguesa (AHORA SIEMPRE VISIBLE POR DEFAULT) */
+/* Botón de hamburguesa (siempre visible por defecto) */
 .global-header .sidebar-toggle {
     display: block; /* Muestra el botón por defecto en todas las pantallas */
     cursor: pointer;
@@ -51,7 +51,7 @@ body {
 
 /* Perfil de Usuario en la esquina superior derecha del global-header */
 .user-profile-widget {
-    position: relative; /* Esencial para el posicionamiento absoluto del dropdown */
+    position: relative;
     cursor: pointer;
     z-index: 10;
 }
@@ -76,24 +76,24 @@ body {
 /* Panel Desplegable del Perfil */
 .user-dropdown-panel {
     position: absolute;
-    top: calc(100% + 10px); /* Posicionado debajo del círculo del perfil */
-    right: 0; /* Alineado a la derecha del círculo del perfil */
+    top: calc(100% + 10px);
+    right: 0;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     padding: 15px;
     min-width: 220px;
-    display: none; /* Oculto por defecto */
+    display: none;
     flex-direction: column;
     gap: 8px;
-    z-index: 1000; /* Asegura que esté por encima de todo */
+    z-index: 1002; /* Aumentado a 1002 para estar SIEMPRE por encima del sidebar (1001) */
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .user-dropdown-panel.show {
-    display: flex; /* Se muestra cuando tiene la clase 'show' */
+    display: flex;
     opacity: 1;
     transform: translateY(0);
 }
@@ -145,22 +145,22 @@ body {
     align-items: center;
     box-shadow: 2px 0 5px rgba(0,0,0,0.2);
     flex-shrink: 0;
-    transition: transform 0.3s ease; /* Transición para el off-canvas */
-    position: sticky; /* Sticky para que se quede visible al hacer scroll en escritorio */
+    transition: transform 0.3s ease;
+    position: sticky; /* En escritorio se pega */
     top: 0;
     height: calc(100vh - 70px);
-    z-index: 10;
-    /* Por defecto, en escritorio está "activo" (visible) */
-    transform: translateX(0); /* Asegura que esté en su posición */
+    z-index: 10; /* Z-index normal para escritorio */
+    transform: translateX(0); /* Por defecto visible en escritorio */
 }
-/* Cuando el sidebar NO está activo (oculto en móvil) */
+
+/* Estado del Sidebar cuando NO está activo (principalmente para móvil) */
 .sidebar:not(.active) {
-    transform: translateX(-250px); /* Mueve el sidebar fuera de la vista */
-    position: fixed; /* Necesario para que el translate funcione correctamente en móvil */
+    transform: translateX(-250px); /* Oculto completamente fuera de la vista */
+    position: fixed; /* Se fija para poder moverlo off-canvas */
     height: 100vh; /* Ocupa toda la altura de la pantalla en móvil */
-    top: 0; /* Desde el top */
-    left: 0; /* Alineado a la izquierda */
-    z-index: 1001; /* Por encima de todo cuando se abre */
+    top: 0;
+    left: 0;
+    z-index: 1001; /* Asegura que se vea por encima del contenido principal en móvil */
 }
 
 
@@ -197,7 +197,7 @@ body {
     border-radius: 0;
 }
 
-/* Botón de cerrar el sidebar (AHORA SIEMPRE VISIBLE POR DEFAULT) */
+/* Botón de cerrar el sidebar (siempre visible por defecto) */
 #sidebar-toggle-close {
     display: block; /* Muestra el botón por defecto en todas las pantallas */
     position: absolute;
@@ -216,10 +216,8 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    /* En escritorio, el main-content no necesita transición de margen */
-    transition: margin-left 0.3s ease; /* Si decidimos colapsar el sidebar en PC */
+    transition: margin-left 0.3s ease;
 }
-/* Nuevo estilo para el header de las secciones */
 .section-header {
     background-color: white;
     padding: 15px 20px;
@@ -234,7 +232,7 @@ body {
     font-size: 1.8rem;
 }
 
-/* Secciones de Contenido (resto de la interfaz) */
+/* Secciones de Contenido */
 .content-section {
     background-color: white;
     padding: 20px;
@@ -244,12 +242,15 @@ body {
     flex-grow: 1;
 }
 
+/* Estilos para las tarjetas del dashboard (Home section) */
 .dashboard-cards-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 20px;
 }
+
+/* Estilo para cada tarjeta individual */
 .card {
     background-color: #e6e9ed;
     padding: 20px;
@@ -271,6 +272,7 @@ body {
     color: #333;
 }
 
+/* Estilos para la tabla de usuarios */
 .users-table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -298,6 +300,8 @@ body {
 #users-table tr:hover {
     background-color: #e6e6e6;
 }
+
+/* Mensajes de error en la tabla */
 #users-error-message {
     margin-top: 15px;
     text-align: center;
@@ -414,11 +418,10 @@ body {
 
     /* Sidebar Off-Canvas para móviles */
     .sidebar {
-        /* En móvil, el sidebar está oculto por defecto y se convierte en fixed */
         position: fixed;
         top: 0;
-        left: 0; /* Aquí lo movemos a la izquierda para el translate */
-        transform: translateX(-250px); /* Oculto fuera de la pantalla */
+        left: 0;
+        transform: translateX(-250px); /* Oculto fuera de la pantalla por defecto en móvil */
         height: 100vh;
         padding-top: 60px;
         z-index: 1001;
