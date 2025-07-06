@@ -20,7 +20,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    padding: 0 15px; /* Añadido padding para evitar que el contenido toque los bordes en móviles */
+    padding: 0 15px;
 }
 .header img {
     height: 48px;
@@ -30,20 +30,20 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     letter-spacing: 1px;
-    text-align: center; /* Asegura que el texto se centre si hay salto de línea */
+    text-align: center;
 }
 
 /* Contenedor login principal (aplicable a login y registro) */
 .login-container {
     background-color: transparent;
-    width: 320px; /* Ancho fijo para pantallas grandes */
+    width: 320px;
     margin: 100px auto 0 auto;
     padding: 8px 30px 8px 30px;
     border-radius: 8px;
     border: 2px solid rgba(0, 33, 71, 0.6);
     box-shadow: 0 0 15px rgba(0, 33, 71, 0.6);
     animation: floating 4s ease-in-out infinite;
-    box-sizing: border-box; /* Importante para el padding y el ancho en responsividad */
+    box-sizing: border-box;
 }
 
 /* Animación flotante */
@@ -95,7 +95,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: 8px; /* Añadido margen inferior para separación de switch-link */
+    margin-bottom: 8px;
 }
 .login-container button:hover {
     background-color: #004080;
@@ -149,7 +149,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease;
-    white-space: nowrap; /* Evita que el texto se rompa en varias líneas inicialmente */
+    white-space: nowrap;
     z-index: 9999;
 }
 #welcome-screen.show {
@@ -164,43 +164,43 @@ body {
 /* Para pantallas más pequeñas (teléfonos) */
 @media (max-width: 480px) {
     .header {
-        height: 60px; /* Un poco más pequeña la barra superior */
+        height: 60px;
         gap: 10px;
     }
     .header img {
-        height: 40px; /* Logo más pequeño */
+        height: 40px;
     }
     .header span {
-        font-size: 1.5rem; /* Texto más pequeño en la cabecera */
+        font-size: 1.5rem;
     }
 
     .login-container {
-        width: 90%; /* Ocupa el 90% del ancho del viewport */
-        margin: 50px auto 0 auto; /* Menos margen superior */
-        padding: 10px 20px; /* Ajuste de padding */
+        width: 90%;
+        margin: 50px auto 0 auto;
+        padding: 10px 20px;
     }
 
     .login-container h2 {
-        font-size: 1.1rem; /* Título de formulario más pequeño */
+        font-size: 1.1rem;
         padding: 6px;
     }
 
     .login-container input,
     .login-container button,
     .switch-link {
-        font-size: 0.9rem; /* Textos más pequeños en inputs y botones */
-        padding: 7px; /* Padding de inputs y botones ligeramente reducido */
+        font-size: 0.9rem;
+        padding: 7px;
     }
 
     .error-message {
-        font-size: 0.8rem; /* Mensaje de error más pequeño */
+        font-size: 0.8rem;
     }
 
     #welcome-screen {
-        font-size: 2rem; /* Tamaño de fuente más pequeño para el mensaje de bienvenida */
-        padding: 0 10px; /* Añadido padding para que no se pegue a los bordes */
-        text-align: center; /* Centrar el texto en caso de que se divida en varias líneas */
-        white-space: normal; /* Permitir que el texto se rompa en varias líneas */
+        font-size: 2rem;
+        padding: 0 10px;
+        text-align: center;
+        white-space: normal;
     }
 }
 
@@ -217,7 +217,7 @@ body {
     }
 
     .login-container {
-        width: 300px; /* Un poco menos ancho que en desktop pero fijo */
+        width: 300px;
         margin: 80px auto 0 auto;
     }
 

@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <title>Sistema Login - Fundación Kinal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /> <link rel="stylesheet" href="css/style.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 <header class="header">
@@ -72,7 +73,6 @@
         registerError.textContent = '';
     }
 
-    // Función para mostrar mensaje de bienvenida y redirigir (para LOGIN exitoso y REGISTRO exitoso)
     function showWelcome(userDisplayName) {
         mainContent.classList.add('slide-out-left');
         setTimeout(() => {
@@ -84,13 +84,12 @@
             setTimeout(() => {
                 welcomeScreen.classList.remove('show');
                 setTimeout(() => {
-                    window.location.href = 'dashboard.html'; // Redirecciona al dashboard
+                    window.location.href = 'dashboard.html';
                 }, 500);
-            }, 3000); // Muestra el mensaje de bienvenida por 3 segundos
+            }, 3000);
         }, 800);
     }
 
-    // --- Manejo del Login con Backend ---
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = loginForm.email.value.trim();
@@ -122,7 +121,6 @@
         }
     });
 
-    // --- Manejo del Registro con Backend ---
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const nombre = registerForm.nombre.value.trim();
@@ -155,11 +153,10 @@
             const data = await response.json();
 
             if (response.ok) {
-                // CAMBIO PRINCIPAL PARA EL REGISTRO: Guardar usuario y redirigir
                 localStorage.setItem('logueado', 'si');
-                localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Asegúrate de que tu backend devuelve el usuario registrado
-                showWelcome(data.user.nombre); // Usa la misma función de bienvenida/redirección que el login
-                registerForm.reset(); // Limpia el formulario de registro
+                localStorage.setItem('usuario_actual', JSON.stringify(data.user));
+                showWelcome(data.user.nombre);
+                registerForm.reset();
             } else {
                 registerError.textContent = data.message || 'Error al registrar usuario. Intenta de nuevo.';
             }
@@ -169,7 +166,6 @@
         }
     });
 
-    // Verifica si el usuario ya está logueado al cargar la página
     document.addEventListener('DOMContentLoaded', () => {
         const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
         if (localStorage.getItem('logueado') === 'si' && usuarioActual && usuarioActual.nombre) {
