@@ -92,12 +92,12 @@
   <script>
     // Referencias a elementos UI
     const sidebar = document.getElementById('sidebar');
-    const sidebarToggleOpen = document.getElementById('sidebar-toggle-open');
-    const sidebarToggleClose = document.getElementById('sidebar-toggle-close');
+    const sidebarToggleOpen = document.getElementById('sidebar-toggle-open'); // Asegúrate que este ID existe en tu HTML
+    const sidebarToggleClose = document.getElementById('sidebar-toggle-close'); // Asegúrate que este ID existe en tu HTML
 
-    const userProfileWidget = document.getElementById('user-profile-widget');
-    const userInitials = document.getElementById('user-initials');
-    const userDropdownPanel = document.getElementById('user-dropdown-panel');
+    const userProfileWidget = document.getElementById('user-profile-widget'); // Asegúrate que este ID existe en tu HTML
+    const userInitials = document.getElementById('user-initials'); // Asegúrate que este ID existe en tu HTML
+    const userDropdownPanel = document.getElementById('user-dropdown-panel'); // Asegúrate que este ID existe en tu HTML
     const dropdownUserName = document.getElementById('dropdown-user-name');
     const dropdownUserEmail = document.getElementById('dropdown-user-email');
     const dropdownUserRole = document.getElementById('dropdown-user-role');
@@ -131,13 +131,13 @@
             activeLink.classList.add('active');
         }
 
-        // Cierra el sidebar en móviles después de seleccionar una opción
+        // Cierra el sidebar si está abierto en móvil al seleccionar una opción
         if (window.innerWidth <= 768) { 
             sidebar.classList.remove('active');
         }
     }
 
-    // Función para cargar usuarios desde el backend (para administradores)
+    // Función para cargar usuarios (omito por brevedad, asumo que ya funciona)
     async function loadUsers() {
         usersTableBody.innerHTML = '';
         usersErrorMessage.textContent = '';
@@ -183,6 +183,7 @@
         }
     }
 
+
     // --- Event Listeners ---
 
     // Navegación principal del sidebar
@@ -199,45 +200,52 @@
         });
     }
 
-    // Botón de cerrar sesión
+    // Botón de cerrar sesión (ambos)
     const performLogout = () => {
         localStorage.removeItem('logueado');
         localStorage.removeItem('usuario_actual');
         window.location.href = 'index.html';
     };
-    // El botón de "Cerrar sesión" en el sidebar
     document.getElementById('logout-button').addEventListener('click', (e) => {
         e.preventDefault();
         performLogout();
     });
-    // El botón de "Cerrar sesión" en el panel desplegable del perfil
     dropdownLogoutButton.addEventListener('click', (e) => {
         e.preventDefault();
         performLogout();
     });
 
+    // Lógica para el panel desplegable del perfil de usuario (verificar IDs y si existe)
+    if (userProfileWidget && userDropdownPanel) { // Añadido check para asegurar que los elementos existen
+        userProfileWidget.addEventListener('click', (event) => {
+            event.stopPropagation(); // Evita que el clic se propague al documento y cierre el panel inmediatamente
+            userDropdownPanel.classList.toggle('show');
+        });
 
-    // Lógica para el panel desplegable del perfil de usuario
-    userProfileWidget.addEventListener('click', (event) => {
-        event.stopPropagation(); 
-        userDropdownPanel.classList.toggle('show');
-    });
+        // Cierra el panel desplegable si se hace clic fuera de él
+        document.addEventListener('click', (event) => {
+            // Asegúrate de que el clic no fue dentro del widget del perfil
+            if (!userProfileWidget.contains(event.target) && userDropdownPanel.classList.contains('show')) {
+                userDropdownPanel.classList.remove('show');
+            }
+        });
+    } else {
+        console.warn("Elementos del perfil de usuario no encontrados. El widget o el dropdown podrían faltar en el HTML.");
+    }
 
-    // Cierra el panel desplegable si se hace clic fuera de él
-    document.addEventListener('click', (event) => {
-        if (!userProfileWidget.contains(event.target) && userDropdownPanel.classList.contains('show')) {
-            userDropdownPanel.classList.remove('show');
-        }
-    });
 
-    // Lógica para abrir/cerrar el sidebar en móviles (ahora también controlable en PC)
-    sidebarToggleOpen.addEventListener('click', () => {
-        sidebar.classList.add('active');
-    });
+    // Lógica para abrir/cerrar el sidebar (verificar IDs y si existen)
+    if (sidebar && sidebarToggleOpen && sidebarToggleClose) { // Añadido check para asegurar que los elementos existen
+        sidebarToggleOpen.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
 
-    sidebarToggleClose.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-    });
+        sidebarToggleClose.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+    } else {
+        console.warn("Elementos del sidebar toggle no encontrados. El sidebar o los botones toggle podrían faltar en el HTML.");
+    }
 
 
     // Lógica al cargar la página (DOMContentLoaded)
@@ -245,29 +253,34 @@
         const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
         if (usuario && localStorage.getItem('logueado') === 'si') {
             // Actualizar información del perfil en el widget y el dropdown
-            userInitials.textContent = (usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '') +
-                                       (usuario.apellido ? usuario.apellido.charAt(0).toUpperCase() : '');
-            if (!userInitials.textContent) userInitials.textContent = 'U';
-
-            dropdownUserName.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
-            dropdownUserEmail.textContent = usuario.email;
-            dropdownUserRole.textContent = usuario.rol;
+            if (userInitials) { // Asegúrate que userInitials existe
+                userInitials.textContent = (usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '') +
+                                           (usuario.apellido ? usuario.apellido.charAt(0).toUpperCase() : '');
+                if (!userInitials.textContent) userInitials.textContent = 'U';
+            }
+            if (dropdownUserName) dropdownUserName.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
+            if (dropdownUserEmail) dropdownUserEmail.textContent = usuario.email;
+            if (dropdownUserRole) dropdownUserRole.textContent = usuario.rol;
 
             // Mostrar el enlace de admin si el rol es 'admin'
-            if (usuario.rol === 'admin') {
-                adminLink.style.display = 'block';
-            } else {
-                adminLink.style.display = 'none';
+            if (adminLink) {
+                if (usuario.rol === 'admin') {
+                    adminLink.style.display = 'block';
+                } else {
+                    adminLink.style.display = 'none';
+                }
             }
 
             // Por defecto, mostrar la sección de inicio
             showSection(dashboardHomeSection, linkDashboard);
 
             // En PC, el sidebar está visible por defecto, en móvil oculto
-            if (window.innerWidth > 768) {
-                sidebar.classList.add('active'); // Mantenerlo "activo" (visible)
-            } else {
-                sidebar.classList.remove('active'); // Ocultar en móvil
+            if (sidebar) { // Asegúrate que sidebar existe
+                if (window.innerWidth > 768) {
+                    sidebar.classList.add('active'); // Mantenerlo "activo" (visible)
+                } else {
+                    sidebar.classList.remove('active'); // Ocultar en móvil
+                }
             }
 
         } else {
