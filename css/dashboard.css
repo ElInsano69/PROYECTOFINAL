@@ -6,21 +6,28 @@ body {
     background-color: #f0f2f5;
     color: #002147;
     display: flex;
-    flex-direction: column; /* Cambiado a columna para acomodar la nueva cabecera global */
+    flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Nueva Cabecera Global (similar a login.html) */
+/* Cabecera Global con Logo, Título, Menú Hamburguesa y Perfil */
 .global-header {
-    background-color: #002147;
+    background-color: #002147; /* El color azul de la línea */
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 20;
+}
+.global-header .header-left-section {
+    display: flex;
+    align-items: center;
     gap: 15px;
-    padding: 0 15px;
-    flex-shrink: 0; /* Para que no se encoja en flexbox */
 }
 .global-header img {
     height: 48px;
@@ -33,123 +40,26 @@ body {
     text-align: center;
 }
 
-/* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
-.dashboard-container {
-    display: flex;
-    flex-grow: 1; /* Ocupa el espacio restante después de la cabecera global */
-    width: 100%;
-    /* min-height: calc(100vh - 70px); // Ajuste si la cabecera global tiene altura fija */
-}
-
-/* Sidebar (Menú lateral) - ESTILOS PARA ESCRITORIO */
-.sidebar {
-    width: 250px;
-    background-color: #002147;
-    color: white;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    flex-shrink: 0;
-    transition: all 0.3s ease; /* Transición para abrir/cerrar en móvil */
-    position: relative; /* Para el botón de cerrar */
-}
-
-/* Ocultar el perfil del usuario del sidebar ya que se movió */
-.sidebar .user-profile {
-    display: none;
-}
-/* Ocultar el logo del sidebar ya que se movió */
-.sidebar .logo {
-    display: none;
-}
-
-.sidebar nav {
-    width: 100%;
-    flex-grow: 1; /* Para que la navegación ocupe el espacio */
-    margin-top: 20px; /* Margen superior para separar de donde estaba el logo */
-}
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-}
-.sidebar nav ul li {
-    margin: 5px 0;
-}
-.sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 12px 20px;
-    display: block;
-    transition: background-color 0.3s ease;
-}
-.sidebar nav ul li a:hover,
-.sidebar nav ul li a.active {
-    background-color: #004080;
-    border-radius: 0; /* Mantener bordes rectos si quieres */
-}
-
-/* Botones de toggle del sidebar (visibles solo en móvil por defecto) */
-.sidebar-toggle {
-    display: none; /* Oculto por defecto en escritorio */
+/* Botón de hamburguesa (AHORA SIEMPRE VISIBLE) */
+.global-header .sidebar-toggle {
+    display: block; /* Muestra el botón por defecto en todas las pantallas */
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: white;
-}
-#sidebar-toggle-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: white; /* Asegúrate de que el color sea visible */
-    z-index: 100;
+    margin-right: 10px; /* Un pequeño margen para separarlo del logo */
 }
 
-
-/* Contenido Principal (Main Content) */
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-.main-header {
-    background-color: white;
-    padding: 15px 20px; /* Reducido el padding vertical ligeramente */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    display: flex; /* Para alinear el título y el perfil */
-    justify-content: space-between;
-    align-items: center;
-    position: relative; /* Para posicionar el dropdown */
-}
-.main-header h1 {
-    margin: 0;
-    color: #002147;
-    font-size: 1.8rem; /* Tamaño de fuente por defecto para escritorio */
-}
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacio entre el toggle y el título */
-}
-
-/* Perfil de Usuario en la esquina superior derecha del main-header */
+/* Perfil de Usuario en la esquina superior derecha del global-header */
 .user-profile-widget {
     position: relative;
     cursor: pointer;
-    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    z-index: 10;
 }
 .user-profile-widget .user-initials {
-    width: 50px; /* Tamaño del círculo de iniciales */
+    width: 50px;
     height: 50px;
-    background-color: #002147;
-    color: white;
+    background-color: white;
+    color: #002147;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -166,7 +76,7 @@ body {
 /* Panel Desplegable del Perfil */
 .user-dropdown-panel {
     position: absolute;
-    top: calc(100% + 10px); /* Debajo del círculo de iniciales */
+    top: calc(100% + 10px);
     right: 0;
     background-color: white;
     border: 1px solid #ddd;
@@ -174,10 +84,10 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     padding: 15px;
     min-width: 220px;
-    display: none; /* Oculto por defecto */
+    display: none;
     flex-direction: column;
     gap: 8px;
-    z-index: 1000; /* Asegura que esté por encima de todo */
+    z-index: 1000;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -202,7 +112,7 @@ body {
 .user-dropdown-panel button {
     width: 100%;
     padding: 8px 15px;
-    background-color: #dc3545; /* Color rojo para cerrar sesión */
+    background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 5px;
@@ -216,6 +126,100 @@ body {
 }
 
 
+/* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
+.dashboard-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    position: relative; /* Para el sidebar off-canvas */
+}
+
+/* Sidebar (Menú lateral) */
+.sidebar {
+    width: 250px;
+    background-color: #002147;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    transition: transform 0.3s ease; /* Transición para el off-canvas */
+    position: sticky; /* Sticky para que se quede visible al hacer scroll en escritorio */
+    top: 0;
+    height: calc(100vh - 70px); /* Ocupa la altura restante del viewport */
+    z-index: 10;
+}
+
+/* Ocultar el perfil y logo del sidebar ya que se movieron */
+.sidebar .user-profile, .sidebar .logo {
+    display: none;
+}
+
+.sidebar nav {
+    width: 100%;
+    flex-grow: 1;
+    margin-top: 0;
+}
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar nav ul li {
+    margin: 5px 0;
+}
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+    background-color: #004080;
+    border-radius: 0;
+}
+
+/* Botón de cerrar el sidebar (AHORA SIEMPRE VISIBLE) */
+#sidebar-toggle-close {
+    display: block; /* Muestra el botón por defecto en todas las pantallas */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-size: 1.5rem;
+    z-index: 100;
+}
+
+
+/* Contenido Principal (Main Content) */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+/* Nuevo estilo para el header de las secciones */
+.section-header {
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+.section-header h1 {
+    margin: 0;
+    color: #002147;
+    font-size: 1.8rem;
+}
+
 /* Secciones de Contenido */
 .content-section {
     background-color: white;
@@ -223,7 +227,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     margin-bottom: 20px;
-    flex-grow: 1; /* Ocupa el espacio disponible */
+    flex-grow: 1;
 }
 
 /* Estilos para las tarjetas del dashboard (Home section) */
@@ -241,7 +245,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     text-align: center;
-    flex: 1 1 calc(50% - 40px); /* 2 columnas en escritorio */
+    flex: 1 1 calc(50% - 40px);
     min-width: 280px;
     max-width: 350px;
     box-sizing: border-box;
@@ -300,7 +304,11 @@ body {
 /* Para pantallas medianas (tablets en portrait o laptops pequeñas) */
 @media (max-width: 992px) {
     .global-header {
-        height: 60px; /* Header global un poco más pequeño */
+        height: 60px;
+        padding: 0 15px;
+    }
+    .global-header .header-left-section {
+        gap: 10px;
     }
     .global-header img {
         height: 40px;
@@ -309,17 +317,14 @@ body {
         font-size: 1.5rem;
     }
 
-    .sidebar {
-        width: 180px; /* Sidebar un poco más estrecho */
+    /* Ajustes para el tamaño del botón de hamburguesa en pantallas medianas */
+    .global-header .sidebar-toggle {
+        font-size: 1.5rem;
     }
-    .sidebar nav ul li a {
-        font-size: 1rem;
-        padding: 10px 15px;
+    #sidebar-toggle-close {
+        font-size: 1.5rem;
     }
 
-    .main-header h1 {
-        font-size: 1.6rem;
-    }
     .user-profile-widget .user-initials {
         width: 45px;
         height: 45px;
@@ -328,6 +333,26 @@ body {
     .user-dropdown-panel {
         min-width: 200px;
         padding: 10px;
+    }
+
+    .sidebar {
+        width: 200px;
+        height: calc(100vh - 60px); /* Ajuste de altura por el header */
+    }
+    .sidebar nav ul li a {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+    .section-header {
+        padding: 15px 20px;
+        margin-bottom: 25px;
+    }
+    .section-header h1 {
+        font-size: 1.6rem;
     }
 
     .card {
@@ -339,7 +364,14 @@ body {
 /* Para pantallas pequeñas (teléfonos y tablets, hasta 768px) */
 @media (max-width: 768px) {
     .global-header {
-        height: 50px; /* Aún más pequeño */
+        height: 50px;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .global-header .header-left-section {
+        gap: 8px;
     }
     .global-header img {
         height: 35px;
@@ -348,53 +380,18 @@ body {
         font-size: 1.3rem;
     }
 
-    .dashboard-container {
-        flex-direction: row; /* Mantener row para que el sidebar pueda aparecer lateralmente */
-        position: relative; /* Necesario para posicionar el sidebar off-canvas */
+    /* Ajustes para el tamaño del botón de hamburguesa en pantallas pequeñas */
+    .global-header .sidebar-toggle {
+        font-size: 1.5rem; /* No se cambia display aquí porque ya es 'block' */
     }
 
-    /* Sidebar Off-Canvas para móviles */
-    .sidebar {
-        position: fixed; /* Fijo en la pantalla */
-        top: 0;
-        left: -250px; /* Oculto fuera de la pantalla */
-        height: 100%;
-        width: 250px; /* Ancho fijo cuando está abierto */
-        padding-top: 60px; /* Espacio para el icono de cierre */
-        z-index: 1001; /* Por encima de todo */
-        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-    }
-    .sidebar.active {
-        left: 0; /* Se desliza para aparecer */
-    }
-
-    /* Mostrar botón de hamburguesa y de cerrar en móvil */
-    .sidebar-toggle {
-        display: block; /* Muestra los iconos */
-    }
-    #sidebar-toggle-open {
-        color: #002147; /* Color oscuro para el botón de abrir en el main-header */
-    }
-
-
-    /* Ajustes para el main-content cuando el sidebar está oculto */
-    .main-content {
-        padding: 10px;
-        transition: margin-left 0.3s ease; /* Transición para el empuje */
-    }
-    .main-header {
-        padding: 10px 15px;
-    }
-    .main-header h1 {
-        font-size: 1.4rem;
-    }
     .user-profile-widget .user-initials {
         width: 40px;
         height: 40px;
         font-size: 1.2rem;
     }
     .user-dropdown-panel {
-        top: calc(100% + 5px); /* Más cerca del círculo */
+        top: calc(100% + 5px);
         min-width: 180px;
         padding: 8px;
     }
@@ -409,19 +406,50 @@ body {
         font-size: 0.8rem;
     }
 
+    /* Sidebar Off-Canvas para móviles */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Oculto fuera de la pantalla por defecto en móvil */
+        height: 100vh;
+        padding-top: 60px;
+        z-index: 1001;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        transform: translateX(0);
+    }
+    .sidebar.active {
+        left: 0; /* Se desliza para aparecer */
+    }
+
+    /* Ajustes para el botón de cerrar sidebar en pantallas pequeñas */
+    #sidebar-toggle-close {
+        font-size: 1.8rem; /* No se cambia display aquí porque ya es 'block' */
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+    .section-header {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+    }
+    .section-header h1 {
+        font-size: 1.4rem;
+    }
+
     .dashboard-cards-grid {
-        flex-direction: column; /* Apila las tarjetas */
+        flex-direction: column;
         align-items: center;
         gap: 15px;
     }
     .card {
         flex: 1 1 100%;
-        max-width: 95%; /* Se adapta al ancho del contenedor */
+        max-width: 95%;
         min-width: unset;
     }
 
     #users-table {
-        min-width: 450px; /* Mantener un min-width para el scroll horizontal */
+        min-width: 450px;
     }
     #users-table th, #users-table td {
         font-size: 0.8rem;
@@ -433,17 +461,24 @@ body {
 @media (max-width: 480px) {
     .global-header {
         height: 45px;
+        padding: 0 8px;
+    }
+    .global-header .header-left-section {
+        gap: 5px;
     }
     .global-header img {
         height: 30px;
     }
     .global-header span {
         font-size: 1.1rem;
+        flex-shrink: 1;
+        min-width: 0;
     }
 
-    .main-header h1 {
-        font-size: 1.2rem;
+    .global-header .sidebar-toggle {
+        font-size: 1.3rem;
     }
+
     .user-profile-widget .user-initials {
         width: 35px;
         height: 35px;
@@ -453,13 +488,19 @@ body {
         min-width: 160px;
     }
     .sidebar {
-        width: 220px; /* Sidebar un poco más estrecho para pantallas muy pequeñas */
+        width: 220px;
         left: -220px;
     }
     .sidebar.active {
         left: 0;
     }
+    .section-header h1 {
+        font-size: 1.2rem;
+    }
+    .content-section h2 {
+        font-size: 1.1rem;
+    }
     #users-table {
-        min-width: 380px; /* Reducir aún más el min-width si es necesario */
+        min-width: 380px;
     }
 }

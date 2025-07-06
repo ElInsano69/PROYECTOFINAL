@@ -10,14 +10,30 @@
 <body>
 
   <header class="global-header">
-      <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
-      <span>Fundación Kinal</span>
+      <div class="header-left-section">
+          <div class="sidebar-toggle" id="sidebar-toggle-open">
+              <i class="fas fa-bars"></i>
+          </div>
+          <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+          <span>Fundación Kinal</span>
+      </div>
+
+      <div class="user-profile-widget" id="user-profile-widget">
+        <div class="user-initials" id="user-initials"></div>
+        <div class="user-dropdown-panel" id="user-dropdown-panel">
+          <p><strong><span id="dropdown-user-name"></span></strong></p>
+          <p><span id="dropdown-user-email"></span></p>
+          <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
+          <button id="dropdown-logout-button">Cerrar sesión</button>
+        </div>
+      </div>
   </header>
 
   <div class="dashboard-container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-toggle" id="sidebar-toggle-close">
-        <i class="fas fa-times"></i> </div>
+        <i class="fas fa-times"></i>
+      </div>
       <nav>
         <ul>
           <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
@@ -30,22 +46,8 @@
     </aside>
 
     <main class="main-content">
-      <header class="main-header">
-        <div class="header-left">
-          <div class="sidebar-toggle" id="sidebar-toggle-open">
-              <i class="fas fa-bars"></i> </div>
-          <h1>Bienvenido al Dashboard</h1>
-        </div>
-
-        <div class="user-profile-widget" id="user-profile-widget">
-          <div class="user-initials" id="user-initials"></div>
-          <div class="user-dropdown-panel" id="user-dropdown-panel">
-            <p><strong><span id="dropdown-user-name"></span></strong></p>
-            <p><span id="dropdown-user-email"></span></p>
-            <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
-            <button id="dropdown-logout-button">Cerrar sesión</button>
-          </div>
-        </div>
+      <header class="section-header">
+        <h1>Bienvenido al Dashboard</h1>
       </header>
 
       <section id="dashboard-home-section" class="content-section active">
@@ -130,7 +132,7 @@
         }
 
         // Cierra el sidebar en móviles después de seleccionar una opción
-        if (window.innerWidth <= 768) { // Usar el mismo breakpoint que en CSS
+        if (window.innerWidth <= 768) { 
             sidebar.classList.remove('active');
         }
     }
@@ -148,7 +150,7 @@
 
         try {
             const response = await fetch(`${BACKEND_URL}/users`, {
-                method: 'POST', // Usamos POST como lo tienes en tu backend
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -217,7 +219,6 @@
 
     // Lógica para el panel desplegable del perfil de usuario
     userProfileWidget.addEventListener('click', (event) => {
-        // Evita que el clic se propague al documento y cierre el panel inmediatamente
         event.stopPropagation(); 
         userDropdownPanel.classList.toggle('show');
     });
@@ -229,7 +230,7 @@
         }
     });
 
-    // Lógica para abrir/cerrar el sidebar en móviles
+    // Lógica para abrir/cerrar el sidebar en móviles (ahora también controlable en PC)
     sidebarToggleOpen.addEventListener('click', () => {
         sidebar.classList.add('active');
     });
@@ -246,7 +247,7 @@
             // Actualizar información del perfil en el widget y el dropdown
             userInitials.textContent = (usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '') +
                                        (usuario.apellido ? usuario.apellido.charAt(0).toUpperCase() : '');
-            if (!userInitials.textContent) userInitials.textContent = 'U'; // Default si no hay nombre/apellido
+            if (!userInitials.textContent) userInitials.textContent = 'U';
 
             dropdownUserName.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
             dropdownUserEmail.textContent = usuario.email;
@@ -262,14 +263,15 @@
             // Por defecto, mostrar la sección de inicio
             showSection(dashboardHomeSection, linkDashboard);
 
-        } else {
-            // Si no hay usuario logueado, redirigir a login
-            window.location.href = 'index.html';
-        }
+            // En PC, el sidebar está visible por defecto, en móvil oculto
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active'); // Mantenerlo "activo" (visible)
+            } else {
+                sidebar.classList.remove('active'); // Ocultar en móvil
+            }
 
-        // Si la pantalla es móvil al cargar, oculta el sidebar por defecto
-        if (window.innerWidth <= 768) {
-             sidebar.classList.remove('active'); // Asegura que esté oculto inicialmente
+        } else {
+            window.location.href = 'index.html';
         }
     });
   </script>
