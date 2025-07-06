@@ -28,7 +28,7 @@
     <h2>Registrarse</h2>
     <form id="register-form" autocomplete="off">
       <input type="text" name="nombre" placeholder="Nombre" required />
-      <input type="text" name="apellido" placeholder="Apellido" required />
+      <input type="text" name="apellido" placeholder="Apellido" required />
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="clave" placeholder="Contraseña" required />
       <input type="password" name="clave2" placeholder="Repetir Contraseña" required />
@@ -42,149 +42,151 @@
 <div id="welcome-screen"></div>
 
 <script>
-  const mainContent = document.getElementById('main-content');
-  const loginContainer = document.getElementById('login-container');
-  const registerContainer = document.getElementById('register-container');
-  const showRegisterBtn = document.getElementById('show-register');
-  const showLoginBtn = document.getElementById('show-login');
-  const welcomeScreen = document.getElementById('welcome-screen');
+  const mainContent = document.getElementById('main-content');
+  const loginContainer = document.getElementById('login-container');
+  const registerContainer = document.getElementById('register-container');
+  const showRegisterBtn = document.getElementById('show-register');
+  const showLoginBtn = document.getElementById('show-login');
+  const welcomeScreen = document.getElementById('welcome-screen');
 
-  const loginForm = document.getElementById('login-form');
-  const loginError = document.getElementById('login-error');
-  const registerForm = document.getElementById('register-form');
-  const registerError = document.getElementById('register-error');
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const registerForm = document.getElementById('register-form');
+  const registerError = document.getElementById('register-error');
 
-  // --- ¡¡¡IMPORTANTE!!! AJUSTA ESTA URL ---
-  // Si tu backend está corriendo LOCALMENTE (en tu computadora), usa: 'http://localhost:3000'
-  // Si tu backend está desplegado en Render (o similar), usa su URL pública, por ejemplo: 'https://kinal-backend-api.onrender.com'
-  const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/'; // <--- ¡CAMBIA ESTO SEGÚN DÓNDE ESTÉ TU BACKEND!
+  // --- ¡¡¡IMPORTANTE!!! AJUSTA ESTA URL ---
+  // Si tu backend está corriendo LOCALMENTE (en tu computadora), usa: 'http://localhost:3000'
+  // Si tu backend está desplegado en Render (o similar), usa su URL pública, por ejemplo: 'https://kinal-backend-api.onrender.com'
+  const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; // <-- ¡CORREGIDO! Ahora incluye '/api'
 
-  // Funciones de UI para cambiar entre formularios y limpiar mensajes
-  showRegisterBtn.addEventListener('click', () => {
-    loginContainer.style.display = 'none';
-    registerContainer.style.display = 'block';
-    clearMessages();
-  });
+  // Funciones de UI para cambiar entre formularios y limpiar mensajes
+  showRegisterBtn.addEventListener('click', () => {
+    loginContainer.style.display = 'none';
+    registerContainer.style.display = 'block';
+    clearMessages();
+  });
 
-  showLoginBtn.addEventListener('click', () => {
-    registerContainer.style.display = 'none';
-    loginContainer.style.display = 'block';
-    clearMessages();
-  });
+  showLoginBtn.addEventListener('click', () => {
+    registerContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
+    clearMessages();
+  });
 
-  function clearMessages() {
-    loginError.textContent = '';
-    registerError.textContent = '';
-  }
+  function clearMessages() {
+    loginError.textContent = '';
+    registerError.textContent = '';
+  }
 
-  // Función para mostrar mensaje de bienvenida y redirigir
-  function showWelcome(userDisplayName) {
-    mainContent.classList.add('slide-out-left');
-    setTimeout(() => {
-      mainContent.style.display = 'none';
+  // Función para mostrar mensaje de bienvenida y redirigir
+  function showWelcome(userDisplayName) {
+    mainContent.classList.add('slide-out-left');
+    setTimeout(() => {
+      mainContent.style.display = 'none';
 
-      welcomeScreen.textContent = `BIENVENIDO ${userDisplayName.toUpperCase()}`;
-      welcomeScreen.classList.add('show');
+      welcomeScreen.textContent = `BIENVENIDO ${userDisplayName.toUpperCase()}`;
+      welcomeScreen.classList.add('show');
 
-      setTimeout(() => {
-        welcomeScreen.classList.remove('show');
-        setTimeout(() => {
-          window.location.href = 'dashboard.html'; // Redirecciona al dashboard
-        }, 500);
-      }, 3000);
+      setTimeout(() => {
+        welcomeScreen.classList.remove('show');
+        setTimeout(() => {
+          window.location.href = 'dashboard.html'; // Redirecciona al dashboard
+        }, 500);
+      }, 3000);
 
-    }, 800);
-  }
+    }, 800);
+  }
 
-  // --- Manejo del Login con Backend ---
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = loginForm.email.value.trim();
-    const clave = loginForm.clave.value.trim();
+  // --- Manejo del Login con Backend ---
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = loginForm.email.value.trim();
+    const clave = loginForm.clave.value.trim();
 
-    clearMessages();
+    clearMessages();
 
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, clave })
-      });
+    try {
+      // Aquí ya se usaba BACKEND_URL/api/login, lo cual es correcto.
+      const response = await fetch(`${BACKEND_URL}/login`, { // <--- Eliminado `/api` extra aquí
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, clave })
+      });
 
-      const data = await response.json();
+      const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem('logueado', 'si');
-        localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Guarda el objeto completo del usuario
-        showWelcome(data.user.nombre); // Usa el nombre del usuario recibido del backend
-      } else {
-        loginError.textContent = data.message || 'Error al iniciar sesión. Intenta de nuevo.';
-      }
-    } catch (error) {
-      console.error('Error de red o servidor:', error);
-      loginError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
-    }
-  });
+      if (response.ok) {
+        localStorage.setItem('logueado', 'si');
+        localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Guarda el objeto completo del usuario
+        showWelcome(data.user.nombre); // Usa el nombre del usuario recibido del backend
+      } else {
+        loginError.textContent = data.message || 'Error al iniciar sesión. Intenta de nuevo.';
+      }
+    } catch (error) {
+      console.error('Error de red o servidor:', error);
+      loginError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
+    }
+  });
 
-  // --- Manejo del Registro con Backend ---
-  registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const nombre = registerForm.nombre.value.trim();
-    const apellido = registerForm.apellido.value.trim();
-    const email = registerForm.email.value.trim();
-    const clave = registerForm.clave.value.trim();
-    const clave2 = registerForm.clave2.value.trim();
+  // --- Manejo del Registro con Backend ---
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nombre = registerForm.nombre.value.trim();
+    const apellido = registerForm.apellido.value.trim();
+    const email = registerForm.email.value.trim();
+    const clave = registerForm.clave.value.trim();
+    const clave2 = registerForm.clave2.value.trim();
 
-    clearMessages();
+    clearMessages();
 
-    if (clave !== clave2) {
-      registerError.textContent = 'Las contraseñas no coinciden.';
-      return;
-    }
+    if (clave !== clave2) {
+      registerError.textContent = 'Las contraseñas no coinciden.';
+      return;
+    }
 
-    if (!nombre || !apellido || !email || !clave) {
-      registerError.textContent = 'Por favor, llena todos los campos.';
-      return;
-    }
+    if (!nombre || !apellido || !email || !clave) {
+      registerError.textContent = 'Por favor, llena todos los campos.';
+      return;
+    }
 
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nombre, apellido, email, clave })
-      });
+    try {
+      // Aquí ya se usaba BACKEND_URL/api/register, lo cual es correcto.
+      const response = await fetch(`${BACKEND_URL}/register`, { // <--- Eliminado `/api` extra aquí
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, apellido, email, clave })
+      });
 
-      const data = await response.json();
+      const data = await response.json();
 
-      if (response.ok) {
-        alert('Registro exitoso. ¡Ahora puedes iniciar sesión!');
-        registerForm.reset(); // Limpia el formulario
-        registerContainer.style.display = 'none'; // Oculta el formulario de registro
-        loginContainer.style.display = 'block'; // Muestra el de login
-        clearMessages();
-      } else {
-        registerError.textContent = data.message || 'Error al registrar usuario. Intenta de nuevo.';
-      }
-    } catch (error) {
-      console.error('Error de red o servidor:', error);
-      registerError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
-    }
-  });
+      if (response.ok) {
+        alert('Registro exitoso. ¡Ahora puedes iniciar sesión!');
+        registerForm.reset(); // Limpia el formulario
+        registerContainer.style.display = 'none'; // Oculta el formulario de registro
+        loginContainer.style.display = 'block'; // Muestra el de login
+        clearMessages();
+      } else {
+        registerError.textContent = data.message || 'Error al registrar usuario. Intenta de nuevo.';
+      }
+    } catch (error) {
+      console.error('Error de red o servidor:', error);
+      registerError.textContent = 'No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.';
+    }
+  });
 
-  // Verifica si el usuario ya está logueado al cargar la página
-  document.addEventListener('DOMContentLoaded', () => {
-    const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual')); // Recupera el objeto de usuario
-    if (localStorage.getItem('logueado') === 'si' && usuarioActual && usuarioActual.nombre) {
-      showWelcome(usuarioActual.nombre); // Usa el nombre guardado para la bienvenida
-    } else {
-      loginContainer.style.display = 'block';
-      registerContainer.style.display = 'none';
-    }
-  });
+  // Verifica si el usuario ya está logueado al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual')); // Recupera el objeto de usuario
+    if (localStorage.getItem('logueado') === 'si' && usuarioActual && usuarioActual.nombre) {
+      showWelcome(usuarioActual.nombre); // Usa el nombre guardado para la bienvenida
+    } else {
+      loginContainer.style.display = 'block';
+      registerContainer.style.display = 'none';
+    }
+  });
 </script>
 </body>
 </html>
