@@ -53,7 +53,7 @@ body {
 .user-profile-widget {
     position: relative;
     cursor: pointer;
-    z-index: 10;
+    z-index: 25; /* Aumentado, para asegurar que esté por encima de la sección izquierda del header */
 }
 .user-profile-widget .user-initials {
     width: 50px;
@@ -68,6 +68,8 @@ body {
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: transform 0.2s ease-in-out;
+    /* Puedes añadir padding aquí si el área de toque sigue siendo un problema */
+    /* padding: 5px; */
 }
 .user-profile-widget .user-initials:hover {
     transform: scale(1.05);
@@ -87,7 +89,7 @@ body {
     display: none;
     flex-direction: column;
     gap: 8px;
-    z-index: 1002; /* Aumentado a 1002 para estar SIEMPRE por encima del sidebar (1001) */
+    z-index: 1003; /* AUMENTADO DE NUEVO para garantizar máxima visibilidad sobre todo (sidebar 1001) */
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -396,24 +398,14 @@ body {
     }
 
     .user-profile-widget .user-initials {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
+        width: 45px; /* Ligeramente más grande para facilitar el toque */
+        height: 45px; /* Ligeramente más grande para facilitar el toque */
+        font-size: 1.3rem; /* Ligeramente más grande */
     }
     .user-dropdown-panel {
-        top: calc(100% + 5px);
-        min-width: 180px;
-        padding: 8px;
-    }
-    .user-dropdown-panel p {
-        font-size: 0.8rem;
-    }
-    .user-dropdown-panel p strong {
-        font-size: 0.9rem;
-    }
-    .user-dropdown-panel button {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+        top: calc(100% + 8px); /* Ajustar un poco la posición */
+        min-width: 200px; /* Ligeramente más ancho */
+        padding: 10px; /* Más padding para el contenido */
     }
 
     /* Sidebar Off-Canvas para móviles */
@@ -489,12 +481,12 @@ body {
     }
 
     .user-profile-widget .user-initials {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
+        width: 40px; /* Tamaño final para teléfonos muy pequeños */
+        height: 40px;
+        font-size: 1.2rem;
     }
     .user-dropdown-panel {
-        min-width: 160px;
+        min-width: 180px; /* Ajuste final */
     }
     .sidebar {
         width: 220px;

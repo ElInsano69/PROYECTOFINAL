@@ -220,7 +220,7 @@
     // Lógica para el panel desplegable del perfil de usuario
     if (userProfileWidget && userDropdownPanel) {
         userProfileWidget.addEventListener('click', (event) => {
-            console.log("Clic en widget de perfil"); // Para depuración
+            console.log("Clic en widget de perfil detectado!"); // Para depuración
             event.stopPropagation(); // Evita que el clic se propague al documento
             userDropdownPanel.classList.toggle('show');
         });
@@ -239,12 +239,12 @@
     // Lógica para abrir/cerrar el sidebar
     if (sidebar && sidebarToggleOpen && sidebarToggleClose) {
         sidebarToggleOpen.addEventListener('click', () => {
-            console.log("Abrir sidebar"); // Para depuración
+            console.log("Abrir sidebar clic detectado!"); // Para depuración
             sidebar.classList.add('active');
         });
 
         sidebarToggleClose.addEventListener('click', () => {
-            console.log("Cerrar sidebar"); // Para depuración
+            console.log("Cerrar sidebar clic detectado!"); // Para depuración
             sidebar.classList.remove('active');
         });
     } else {
