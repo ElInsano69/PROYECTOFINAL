@@ -1,289 +1,221 @@
-/* General */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    color: #002147;
-    display: flex;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Dashboard - Fundación Kinal</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
 
-/* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
-.dashboard-container {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-}
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="img/kinal-logo-2.png" alt="Logo Kinal">
+      </div>
+      <div class="user-profile">
+        <div class="user-initials" id="user-initials"></div>
+        <p id="user-name">Nombre Usuario</p>
+        <p id="user-email">email@example.com</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
+          <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
+          <li><a href="#">Reportes</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#" id="logout-button">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-/* Sidebar (Menú lateral) */
-.sidebar {
-    width: 250px;
-    background-color: #002147;
-    color: white;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    flex-shrink: 0;
-}
-.sidebar .logo {
-    margin-bottom: 30px;
-    text-align: center;
-}
-.sidebar .logo img {
-    height: 60px;
-}
-.sidebar .user-profile {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    width: 80%;
-}
-.sidebar .user-initials {
-    width: 70px;
-    height: 70px;
-    background-color: white;
-    color: #002147;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 0 auto 10px auto;
-}
-.sidebar .user-profile p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-}
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-}
-.sidebar nav ul li {
-    margin: 10px 0;
-}
-.sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    display: block;
-    transition: background-color 0.3s ease;
-}
-.sidebar nav ul li a:hover,
-.sidebar nav ul li a.active {
-    background-color: #004080;
-    border-radius: 5px;
-}
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Bienvenido al Dashboard</h1>
+      </header>
 
-/* Contenido Principal (Main Content) */
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-.main-header {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    text-align: center;
-}
-.main-header h1 {
-    margin: 0;
-    color: #002147;
-}
+      <section id="dashboard-home-section" class="content-section active">
+        <h2>Panel Principal</h2>
+        <p>Aquí puedes ver un resumen de tus actividades.</p>
+        <div class="dashboard-cards-grid">
+          <div class="card">
+            <h3>Total de Estudiantes</h3>
+            <p>1200</p>
+          </div>
+          <div class="card">
+            <h3>Cursos Activos</h3>
+            <p>45</p>
+          </div>
+          </div>
+      </section>
 
-/* Secciones de Contenido */
-.content-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
+      <section id="admin-users-section" class="content-section" style="display: none;">
+        <h2>Usuarios Registrados</h2>
+        <div class="users-table-container">
+          <table id="users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Fecha Registro</th>
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+          </table>
+          <p id="users-error-message" style="color: red; text-align: center; margin-top: 15px;"></p>
+        </div>
+      </section>
 
-/* Estilos para las tarjetas del dashboard (Home section) */
-.dashboard-cards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-}
+    </main>
+  </div>
 
-/* Estilo para cada tarjeta individual */
-.card {
-    background-color: #e6e9ed;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin: 0;
-    text-align: center;
-    flex: 1 1 calc(50% - 40px);
-    min-width: 250px;
-    max-width: 300px;
-}
-.card h3 {
-    color: #002147;
-    margin-top: 0;
-}
-.card p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-}
+  <script>
+    const userNameSpan = document.getElementById('user-name');
+    const userEmailSpan = document.getElementById('user-email');
+    const userInitials = document.getElementById('user-initials');
+    const logoutButton = document.getElementById('logout-button');
 
-/* Estilos para la tabla de usuarios */
-.users-table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-#users-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    min-width: 600px;
-}
-#users-table th, #users-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    white-space: nowrap;
-}
-#users-table th {
-    background-color: #002147;
-    color: white;
-    font-weight: bold;
-}
-#users-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-#users-table tr:hover {
-    background-color: #e6e6e6;
-}
+    const linkDashboard = document.getElementById('link-dashboard');
+    const linkAdminUsers = document.getElementById('link-admin-users');
+    const adminLink = document.getElementById('admin-link'); // El <li> que contiene el enlace de admin
 
-/* Mensajes de error en la tabla */
-#users-error-message {
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
-}
+    const dashboardHomeSection = document.getElementById('dashboard-home-section');
+    const adminUsersSection = document.getElementById('admin-users-section');
+    const usersTableBody = document.querySelector('#users-table tbody');
+    const usersErrorMessage = document.getElementById('users-error-message');
 
-/* ========================================= */
-/* Media Queries para Responsividad - dashboard.css */
-/* ========================================= */
+    // !!! IMPORTANTE: AJUSTA ESTA URL para que apunte a tu backend desplegado en Render.
+    // Si tu backend tiene la ruta '/api' en su URL base de Render, quítala de aquí.
+    // Ej: Si tu URL de Render es 'https://mi-backend.onrender.com/api', entonces aquí sería solo 'https://mi-backend.onrender.com'
+    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
 
-/* Para pantallas pequeñas (teléfonos y tablets pequeñas) */
-@media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
+    // Función para mostrar la sección correcta del dashboard
+    function showSection(sectionToShow, activeLink) {
+        // Ocultar todas las secciones de contenido
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+            section.classList.remove('active');
+        });
+        // Mostrar la sección deseada
+        sectionToShow.style.display = 'block';
+        sectionToShow.classList.add('active');
+
+        // Remover 'active' de todos los enlaces del sidebar
+        document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
+            link.classList.remove('active');
+        });
+        // Añadir 'active' al enlace actual
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
     }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 10px 0;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    .sidebar .logo,
-    .sidebar .user-profile {
-        margin-bottom: 0;
-        padding: 5px;
-        border-bottom: none;
-        width: auto;
-    }
-    .sidebar .logo img {
-        height: 40px;
-    }
-    .sidebar .user-profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 0.8rem;
-    }
-    .sidebar .user-initials {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-    }
-    .sidebar .user-profile p {
-        margin: 2px 0;
-        font-size: 0.75rem;
-    }
-    .sidebar nav {
-        width: 100%;
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-    }
-    .sidebar nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px;
-    }
-    .sidebar nav ul li {
-        margin: 0;
-    }
-    .sidebar nav ul li a {
-        font-size: 0.9rem;
-        padding: 8px 12px;
+    // Función para cargar usuarios desde el backend (para administradores)
+    async function loadUsers() {
+        usersTableBody.innerHTML = ''; // Limpiar tabla antes de cargar
+        usersErrorMessage.textContent = ''; // Limpiar mensajes de error
+
+        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
+        // Verificar si el usuario está logueado y tiene rol de admin
+        if (!usuarioActual || usuarioActual.rol !== 'admin') {
+            usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
+            return;
+        }
+
+        try {
+            // Se usa POST para enviar el email del admin por seguridad (aunque GET con headers también es posible)
+            const response = await fetch(`${BACKEND_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userEmail: usuarioActual.email }) // Envía el email del admin
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                if (data.users && data.users.length > 0) {
+                    data.users.forEach(user => {
+                        const row = usersTableBody.insertRow();
+                        row.insertCell(0).textContent = user.id;
+                        row.insertCell(1).textContent = user.nombre;
+                        row.insertCell(2).textContent = user.apellido;
+                        row.insertCell(3).textContent = user.email;
+                        row.insertCell(4).textContent = user.rol;
+                        // Formatear la fecha de registro si existe
+                        const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
+                        row.insertCell(5).textContent = createdAt;
+                    });
+                } else {
+                    usersErrorMessage.textContent = 'No hay usuarios registrados.';
+                }
+            } else {
+                usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
+            }
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
+            usersErrorMessage.textContent = 'No se pudo conectar con el servidor para obtener usuarios.';
+        }
     }
 
-    .main-content {
-        padding: 15px;
-    }
-    .main-header {
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-    .main-header h1 {
-        font-size: 1.5rem;
+    // Event Listeners para la navegación
+    linkDashboard.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection(dashboardHomeSection, linkDashboard);
+    });
+
+    if (linkAdminUsers) { // Asegúrate de que el elemento exista antes de añadir el listener
+        linkAdminUsers.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection(adminUsersSection, linkAdminUsers);
+            loadUsers(); // Carga los usuarios cuando se accede a esta sección
+        });
     }
 
-    .content-section {
-        padding: 15px;
-    }
+    // Lógica al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
+        if (usuario && localStorage.getItem('logueado') === 'si') {
+            // Actualizar información del perfil
+            userNameSpan.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
+            userEmailSpan.textContent = usuario.email;
+            let initials = '';
+            if (usuario.nombre) {
+                initials += usuario.nombre.charAt(0).toUpperCase();
+            }
+            if (usuario.apellido) {
+                initials += usuario.apellido.charAt(0).toUpperCase();
+            }
+            userInitials.textContent = initials || 'U';
 
-    .card {
-        flex: 1 1 90%;
-        margin: 10px auto;
-        max-width: 90%;
-    }
+            // Mostrar el enlace de admin si el rol es 'admin'
+            if (usuario.rol === 'admin') {
+                adminLink.style.display = 'block';
+            } else {
+                adminLink.style.display = 'none';
+            }
 
-    #users-table th, #users-table td {
-        padding: 8px;
-        font-size: 0.85rem;
-    }
-}
+            // Por defecto, mostrar la sección de inicio
+            showSection(dashboardHomeSection, linkDashboard);
 
-/* Para pantallas muy pequeñas (teléfonos en modo portrait) */
-@media (max-width: 400px) {
-    .sidebar nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    .sidebar nav ul li a {
-        padding: 8px 10px;
-        text-align: center;
-    }
-    .sidebar .user-profile {
-        font-size: 0.7rem;
-    }
-    .sidebar .user-profile p:last-child {
-        display: none;
-    }
-}
+        } else {
+            // Si no hay usuario logueado en localStorage, redirigir a la página de login
+            window.location.href = 'index.html';
+        }
+    });
+
+    // Lógica para el botón de cerrar sesión
+    logoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('logueado');
+        localStorage.removeItem('usuario_actual');
+        window.location.href = 'index.html';
+    });
+  </script>
+
+</body>
+</html>
