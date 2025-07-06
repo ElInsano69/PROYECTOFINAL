@@ -348,4 +348,18 @@ body {
         margin-left: auto;
         padding: 10px;
     }
+
+    /* Nuevo: esconde el sidebar al hacer clic en una opción */
+    .sidebar nav ul li a {
+        cursor: pointer;
+    }
+
+    .sidebar nav ul li a.active {
+        background-color: #004080;
+        border-radius: 0;
+    }
+
+    .sidebar nav ul li a.clicked {
+        transform: translateX(-250px); /* Esconde el sidebar */
+    }
 }
