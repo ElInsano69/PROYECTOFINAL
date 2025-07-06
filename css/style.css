@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('../img/instalacion-kinal.png'); /* Asegúrate de que sea .png en minúsculas */
+    background-image: url('../img/instalacion-kinal.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -20,6 +20,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 15px;
+    padding: 0 15px; /* Añadido padding para evitar que el contenido toque los bordes en móviles */
 }
 .header img {
     height: 48px;
@@ -29,18 +30,20 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     letter-spacing: 1px;
+    text-align: center; /* Asegura que el texto se centre si hay salto de línea */
 }
 
 /* Contenedor login principal (aplicable a login y registro) */
 .login-container {
     background-color: transparent;
-    width: 320px;
-    margin: 100px auto 0 auto; /* Subido y centrado verticalmente */
-    padding: 8px 30px 8px 30px; /* Reducido el padding superior e inferior aún más */
+    width: 320px; /* Ancho fijo para pantallas grandes */
+    margin: 100px auto 0 auto;
+    padding: 8px 30px 8px 30px;
     border-radius: 8px;
     border: 2px solid rgba(0, 33, 71, 0.6);
     box-shadow: 0 0 15px rgba(0, 33, 71, 0.6);
     animation: floating 4s ease-in-out infinite;
+    box-sizing: border-box; /* Importante para el padding y el ancho en responsividad */
 }
 
 /* Animación flotante */
@@ -56,13 +59,13 @@ body {
 /* Título de los formularios (Iniciar Sesión / Registrarse) */
 .login-container h2 {
     text-align: center;
-    margin-bottom: 15px; /* Reducido un poco */
+    margin-bottom: 15px;
     font-weight: 700;
     color: white;
     background-color: #002147;
-    padding: 8px; /* Reducido padding del título */
+    padding: 8px;
     border-radius: 4px;
-    font-size: 1.2rem; /* Reducido tamaño de fuente del título */
+    font-size: 1.2rem;
 }
 
 /* Inputs de los formularios */
@@ -70,11 +73,11 @@ body {
 .login-container input[type="password"],
 .login-container input[type="text"] {
     width: 100%;
-    padding: 8px; /* Reducido padding de los inputs */
-    margin-bottom: 6px; /* <-- REDUCIDO AQUÍ: Era 8px, ahora 6px */
+    padding: 8px;
+    margin-bottom: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 0.95rem; /* Ligeramente reducido el tamaño de la fuente */
+    font-size: 0.95rem;
     outline: none;
     box-sizing: border-box;
     background-color: rgba(255,255,255,0.9);
@@ -92,6 +95,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 8px; /* Añadido margen inferior para separación de switch-link */
 }
 .login-container button:hover {
     background-color: #004080;
@@ -99,24 +103,24 @@ body {
 
 /* Enlaces de cambio de formulario (botones de "switch") */
 .switch-link {
-    margin-top: 8px; /* <-- REDUCIDO AQUÍ: Era 10px, ahora 8px */
+    margin-top: 8px;
     text-align: center;
-    font-size: 0.85rem; /* Ligeramente reducido el tamaño de la fuente */
+    font-size: 0.85rem;
     color: #002147;
     cursor: pointer;
     background: none;
     border: none;
     text-decoration: underline;
-    display: block; /* Asegura que ocupe su propia línea */
-    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+    display: block;
+    width: 100%;
 }
 
 /* Mensajes de error */
 .error-message {
     color: red;
-    font-size: 0.85rem; /* Ligeramente reducido el tamaño de la fuente */
+    font-size: 0.85rem;
     text-align: center;
-    margin-bottom: 10px; /* Reducido un poco */
+    margin-bottom: 10px;
     text-shadow: 1px 1px 2px white;
 }
 
@@ -145,10 +149,79 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease;
-    white-space: nowrap;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas inicialmente */
     z-index: 9999;
 }
 #welcome-screen.show {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* ========================================= */
+/* Media Queries para Responsividad - style.css */
+/* ========================================= */
+
+/* Para pantallas más pequeñas (teléfonos) */
+@media (max-width: 480px) {
+    .header {
+        height: 60px; /* Un poco más pequeña la barra superior */
+        gap: 10px;
+    }
+    .header img {
+        height: 40px; /* Logo más pequeño */
+    }
+    .header span {
+        font-size: 1.5rem; /* Texto más pequeño en la cabecera */
+    }
+
+    .login-container {
+        width: 90%; /* Ocupa el 90% del ancho del viewport */
+        margin: 50px auto 0 auto; /* Menos margen superior */
+        padding: 10px 20px; /* Ajuste de padding */
+    }
+
+    .login-container h2 {
+        font-size: 1.1rem; /* Título de formulario más pequeño */
+        padding: 6px;
+    }
+
+    .login-container input,
+    .login-container button,
+    .switch-link {
+        font-size: 0.9rem; /* Textos más pequeños en inputs y botones */
+        padding: 7px; /* Padding de inputs y botones ligeramente reducido */
+    }
+
+    .error-message {
+        font-size: 0.8rem; /* Mensaje de error más pequeño */
+    }
+
+    #welcome-screen {
+        font-size: 2rem; /* Tamaño de fuente más pequeño para el mensaje de bienvenida */
+        padding: 0 10px; /* Añadido padding para que no se pegue a los bordes */
+        text-align: center; /* Centrar el texto en caso de que se divida en varias líneas */
+        white-space: normal; /* Permitir que el texto se rompa en varias líneas */
+    }
+}
+
+/* Para tablets (ancho entre 481px y 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .header {
+        height: 65px;
+    }
+    .header img {
+        height: 45px;
+    }
+    .header span {
+        font-size: 1.6rem;
+    }
+
+    .login-container {
+        width: 300px; /* Un poco menos ancho que en desktop pero fijo */
+        margin: 80px auto 0 auto;
+    }
+
+    #welcome-screen {
+        font-size: 3rem;
+    }
 }

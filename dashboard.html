@@ -1,222 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard - Fundación Kinal</title>
-    <link rel="stylesheet" href="css/dashboard.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>Dashboard - Fundación Kinal</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
 
-  <div class="dashboard-container">
-    <aside class="sidebar">
-      <div class="logo">
-        <img src="img/kinal-logo-2.png" alt="Logo Kinal">
-              </div>
-      <div class="user-profile">
-        <div class="user-initials" id="user-initials"></div>
-        <p id="user-name">Nombre Usuario</p>
-        <p id="user-email">email@example.com</p>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
-          <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
-          <li><a href="#">Reportes</a></li>
-          <li><a href="#">Configuración</a></li>
-          <li><a href="#" id="logout-button">Cerrar sesión</a></li>
-        </ul>
-      </nav>
-    </aside>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="img/kinal-logo-2.png" alt="Logo Kinal">
+                  </div>
+      <div class="user-profile">
+        <div class="user-initials" id="user-initials"></div>
+        <p id="user-name">Nombre Usuario</p>
+        <p id="user-email">email@example.com</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
+          <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
+          <li><a href="#">Reportes</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#" id="logout-button">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <main class="main-content">
-      <header class="main-header">
-        <h1>Bienvenido al Dashboard</h1>
-      </header>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Bienvenido al Dashboard</h1>
+      </header>
 
-      <section id="dashboard-home-section" class="content-section active">
-        <h2>Panel Principal</h2>
-        <p>Aquí puedes ver un resumen de tus actividades.</p>
-        <div class="dashboard-cards-grid" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-          <div class="card">
-            <h3>Total de Estudiantes</h3>
-            <p>1200</p>
-          </div>
-          <div class="card">
-            <h3>Cursos Activos</h3>
-            <p>45</p>
-          </div>
-        </div>
-      </section>
+      <section id="dashboard-home-section" class="content-section active">
+        <h2>Panel Principal</h2>
+        <p>Aquí puedes ver un resumen de tus actividades.</p>
+        <div class="dashboard-cards-grid" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+          <div class="card">
+            <h3>Total de Estudiantes</h3>
+            <p>1200</p>
+          </div>
+          <div class="card">
+            <h3>Cursos Activos</h3>
+            <p>45</p>
+          </div>
+        </div>
+      </section>
 
-      <section id="admin-users-section" class="content-section" style="display: none;">
-        <h2>Usuarios Registrados</h2>
-        <div class="users-table-container">
-          <table id="users-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Fecha Registro</th>
-              </tr>
-            </thead>
-            <tbody>
-                            </tbody>
-          </table>
-          <p id="users-error-message" style="color: red;"></p>
-        </div>
-      </section>
+      <section id="admin-users-section" class="content-section" style="display: none;">
+        <h2>Usuarios Registrados</h2>
+        <div class="users-table-container">
+          <table id="users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Fecha Registro</th>
+              </tr>
+            </thead>
+            <tbody>
+                                        </tbody>
+          </table>
+          <p id="users-error-message" style="color: red;"></p>
+        </div>
+      </section>
 
-    </main>
-  </div>
+    </main>
+  </div>
 
-  <script>
-    const userNameSpan = document.getElementById('user-name');
-    const userEmailSpan = document.getElementById('user-email');
-    const userInitials = document.getElementById('user-initials');
-    const logoutButton = document.getElementById('logout-button');
+  <script>
+    const userNameSpan = document.getElementById('user-name');
+    const userEmailSpan = document.getElementById('user-email');
+    const userInitials = document.getElementById('user-initials');
+    const logoutButton = document.getElementById('logout-button');
 
-    const linkDashboard = document.getElementById('link-dashboard');
-    const linkAdminUsers = document.getElementById('link-admin-users');
-    const adminLink = document.getElementById('admin-link'); // El <li> que contiene el enlace de admin
+    const linkDashboard = document.getElementById('link-dashboard');
+    const linkAdminUsers = document.getElementById('link-admin-users');
+    const adminLink = document.getElementById('admin-link'); // El <li> que contiene el enlace de admin
 
-    const dashboardHomeSection = document.getElementById('dashboard-home-section');
-    const adminUsersSection = document.getElementById('admin-users-section');
-    const usersTableBody = document.querySelector('#users-table tbody');
-    const usersErrorMessage = document.getElementById('users-error-message');
+    const dashboardHomeSection = document.getElementById('dashboard-home-section');
+    const adminUsersSection = document.getElementById('admin-users-section');
+    const usersTableBody = document.querySelector('#users-table tbody');
+    const usersErrorMessage = document.getElementById('users-error-message');
 
-    // --- ¡¡¡IMPORTANTE!!! AJUSTA ESTA URL ---
-    // Si tu backend está corriendo LOCALMENTE (en tu computadora), usa: 'http://localhost:3000'
-    // Si tu backend está desplegado en Render (o similar), usa su URL pública, por ejemplo: 'https://kinal-backend-api.onrender.com'
-    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/'; // <--- ¡CAMBIA ESTO SEGÚN DÓNDE ESTÉ TU BACKEND!
+    // --- ¡¡¡IMPORTANTE!!! AJUSTA ESTA URL ---
+    // Si tu backend está corriendo LOCALMENTE (en tu computadora), usa: 'http://localhost:3000'
+    // Si tu backend está desplegado en Render (o similar), usa su URL pública, por ejemplo: 'https://kinal-backend-api.onrender.com'
+    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; // CAMBIO: Añadido /api para consistencia si no está en la base URL
 
-    // Función para mostrar la sección correcta del dashboard
-    function showSection(sectionToShow, activeLink) {
-        // Ocultar todas las secciones de contenido
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.display = 'none';
-            section.classList.remove('active');
-        });
-        // Mostrar la sección deseada
-        sectionToShow.style.display = 'block';
-        sectionToShow.classList.add('active');
+    // Función para mostrar la sección correcta del dashboard
+    function showSection(sectionToShow, activeLink) {
+        // Ocultar todas las secciones de contenido
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+            section.classList.remove('active');
+        });
+        // Mostrar la sección deseada
+        sectionToShow.style.display = 'block';
+        sectionToShow.classList.add('active');
 
-        // Remover 'active' de todos los enlaces del sidebar
-        document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
-            link.classList.remove('active');
-        });
-        // Añadir 'active' al enlace actual
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-    }
+        // Remover 'active' de todos los enlaces del sidebar
+        document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
+            link.classList.remove('active');
+        });
+        // Añadir 'active' al enlace actual
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
 
-    // Función para cargar usuarios desde el backend (para administradores)
-    async function loadUsers() {
-        usersTableBody.innerHTML = ''; // Limpiar tabla antes de cargar
-        usersErrorMessage.textContent = ''; // Limpiar mensajes de error
+    // Función para cargar usuarios desde el backend (para administradores)
+    async function loadUsers() {
+        usersTableBody.innerHTML = ''; // Limpiar tabla antes de cargar
+        usersErrorMessage.textContent = ''; // Limpiar mensajes de error
 
-        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
-        // Verificar si el usuario está logueado y tiene rol de admin
-        if (!usuarioActual || usuarioActual.rol !== 'admin') {
-            usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
-            return;
-        }
+        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
+        // Verificar si el usuario está logueado y tiene rol de admin
+        if (!usuarioActual || usuarioActual.rol !== 'admin') {
+            usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
+            return;
+        }
 
-        try {
-            // Se usa POST para enviar el email del admin por seguridad (aunque GET con headers también es posible)
-            const response = await fetch(`${BACKEND_URL}/api/users`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userEmail: usuarioActual.email }) // Envía el email del admin
-            });
+        try {
+            // Se usa POST para enviar el email del admin por seguridad (aunque GET con headers también es posible)
+            const response = await fetch(`${BACKEND_URL}/users`, { // CAMBIO: Eliminado /api extra
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userEmail: usuarioActual.email }) // Envía el email del admin
+            });
 
-            const data = await response.json();
+            const data = await response.json();
 
-            if (response.ok) {
-                if (data.users && data.users.length > 0) {
-                    data.users.forEach(user => {
-                        const row = usersTableBody.insertRow();
-                        row.insertCell(0).textContent = user.id;
-                        row.insertCell(1).textContent = user.nombre;
-                        row.insertCell(2).textContent = user.apellido;
-                        row.insertCell(3).textContent = user.email;
-                        row.insertCell(4).textContent = user.rol;
-                        // Formatear la fecha de registro si existe
-                        const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
-                        row.insertCell(5).textContent = createdAt;
-                    });
-                } else {
-                    usersErrorMessage.textContent = 'No hay usuarios registrados.';
-                }
-            } else {
-                usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
-            }
-        } catch (error) {
-            console.error('Error al obtener usuarios:', error);
-            usersErrorMessage.textContent = 'No se pudo conectar con el servidor para obtener usuarios.';
-        }
-    }
+            if (response.ok) {
+                if (data.users && data.users.length > 0) {
+                    data.users.forEach(user => {
+                        const row = usersTableBody.insertRow();
+                        row.insertCell(0).textContent = user.id;
+                        row.insertCell(1).textContent = user.nombre;
+                        row.insertCell(2).textContent = user.apellido;
+                        row.insertCell(3).textContent = user.email;
+                        row.insertCell(4).textContent = user.rol;
+                        // Formatear la fecha de registro si existe
+                        const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
+                        row.insertCell(5).textContent = createdAt;
+                    });
+                } else {
+                    usersErrorMessage.textContent = 'No hay usuarios registrados.';
+                }
+            } else {
+                usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
+            }
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
+            usersErrorMessage.textContent = 'No se pudo conectar con el servidor para obtener usuarios.';
+        }
+    }
 
-    // Event Listeners para la navegación
-    linkDashboard.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection(dashboardHomeSection, linkDashboard);
-    });
+    // Event Listeners para la navegación
+    linkDashboard.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection(dashboardHomeSection, linkDashboard);
+    });
 
-    if (linkAdminUsers) { // Asegúrate de que el elemento exista antes de añadir el listener
-        linkAdminUsers.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(adminUsersSection, linkAdminUsers);
-            loadUsers(); // Carga los usuarios cuando se accede a esta sección
-        });
-    }
+    if (linkAdminUsers) { // Asegúrate de que el elemento exista antes de añadir el listener
+        linkAdminUsers.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection(adminUsersSection, linkAdminUsers);
+            loadUsers(); // Carga los usuarios cuando se accede a esta sección
+        });
+    }
 
-    // Lógica al cargar la página
-    document.addEventListener('DOMContentLoaded', () => {
-        const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
-        if (usuario && localStorage.getItem('logueado') === 'si') {
-            // Actualizar información del perfil
-            userNameSpan.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
-            userEmailSpan.textContent = usuario.email;
-            let initials = '';
-            if (usuario.nombre) {
-                initials += usuario.nombre.charAt(0).toUpperCase();
-            }
-            if (usuario.apellido) {
-                initials += usuario.apellido.charAt(0).toUpperCase();
-            }
-            userInitials.textContent = initials || 'U';
+    // Lógica al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
+        if (usuario && localStorage.getItem('logueado') === 'si') {
+            // Actualizar información del perfil
+            userNameSpan.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
+            userEmailSpan.textContent = usuario.email;
+            let initials = '';
+            if (usuario.nombre) {
+                initials += usuario.nombre.charAt(0).toUpperCase();
+            }
+            if (usuario.apellido) {
+                initials += usuario.apellido.charAt(0).toUpperCase();
+            }
+            userInitials.textContent = initials || 'U';
 
-            // Mostrar el enlace de admin si el rol es 'admin'
-            if (usuario.rol === 'admin') {
-                adminLink.style.display = 'block';
-            } else {
-                adminLink.style.display = 'none';
-            }
+            // Mostrar el enlace de admin si el rol es 'admin'
+            if (usuario.rol === 'admin') {
+                adminLink.style.display = 'block';
+            } else {
+                adminLink.style.display = 'none';
+            }
 
-            // Por defecto, mostrar la sección de inicio
-            showSection(dashboardHomeSection, linkDashboard);
+            // Por defecto, mostrar la sección de inicio
+            showSection(dashboardHomeSection, linkDashboard);
 
-        } else {
-            // Si no hay usuario logueado en localStorage, redirigir a la página de login
-            window.location.href = 'sistemalogin.html';
-        }
-    });
+        } else {
+            // Si no hay usuario logueado en localStorage, redirigir a la página de login
+            window.location.href = 'index.html'; // CAMBIO: Usar index.html para la redirección de login
+        }
+    });
 
-    // Lógica para el botón de cerrar sesión
-    logoutButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('logueado');
-        localStorage.removeItem('usuario_actual');
-        window.location.href = 'sistemalogin.html';
-    });
-  </script>
+    // Lógica para el botón de cerrar sesión
+    logoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('logueado');
+        localStorage.removeItem('usuario_actual');
+        window.location.href = 'index.html'; // CAMBIO: Usar index.html para la redirección de logout
+    });
+  </script>
 
 </body>
 </html>

@@ -1,33 +1,33 @@
 /* General */
 body {
     margin: 0;
-    padding: 0; /* Asegurarse de que no haya padding en el body */
+    padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f2f5; /* Fondo general más claro */
+    background-color: #f0f2f5;
     color: #002147;
-    display: flex; /* Usamos flexbox para el layout del dashboard */
-    min-height: 100vh; /* Asegura que ocupe al menos la altura de la ventana */
-    overflow-x: hidden; /* Evita el scroll horizontal en todo el body */
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
 .dashboard-container {
     display: flex;
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-    min-height: 100vh; /* Asegura que el contenedor se estire a la altura de la ventana */
+    width: 100%;
+    min-height: 100vh;
 }
 
 /* Sidebar (Menú lateral) */
 .sidebar {
-    width: 250px;
+    width: 250px; /* Ancho fijo para desktop */
     background-color: #002147;
     color: white;
     padding: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Sombra para dar profundidad */
-    flex-shrink: 0; /* Evita que el sidebar se encoja */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 }
 .sidebar .logo {
     margin-bottom: 30px;
@@ -40,8 +40,8 @@ body {
     text-align: center;
     margin-bottom: 30px;
     padding: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.2); /* Separador */
-    width: 80%; /* Ancho del contenido del perfil */
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    width: 80%;
 }
 .sidebar .user-initials {
     width: 70px;
@@ -54,7 +54,7 @@ body {
     justify-content: center;
     font-size: 2rem;
     font-weight: bold;
-    margin: 0 auto 10px auto; /* Centrar y margen inferior */
+    margin: 0 auto 10px auto;
 }
 .sidebar .user-profile p {
     margin: 5px 0;
@@ -85,9 +85,9 @@ body {
 
 /* Contenido Principal (Main Content) */
 .main-content {
-    flex-grow: 1; /* Ocupa el espacio restante */
+    flex-grow: 1;
     padding: 20px;
-    overflow-y: auto; /* Permite scroll si el contenido es largo */
+    overflow-y: auto;
 }
 .main-header {
     background-color: white;
@@ -112,11 +112,11 @@ body {
 }
 
 /* Estilos para las tarjetas del dashboard (Home section) */
-/* Se aplica a un contenedor flex para las tarjetas */
 .dashboard-cards-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 20px; /* Espacio entre las tarjetas */
 }
 
 /* Estilo para cada tarjeta individual */
@@ -125,11 +125,11 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin: 10px;
+    margin: 0; /* Eliminado el margin porque gap ya lo maneja */
     text-align: center;
-    flex: 1;
+    flex: 1 1 calc(50% - 40px); /* Dos columnas para desktop con espacio, se adapta a una*/
     min-width: 250px;
-    max-width: 300px;
+    max-width: 300px; /* Asegura que no se estiren demasiado en pantallas muy grandes */
 }
 .card h3 {
     color: #002147;
@@ -143,17 +143,20 @@ body {
 
 /* Estilos para la tabla de usuarios */
 .users-table-container {
-    overflow-x: auto;
+    overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
+    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
 }
 #users-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    min-width: 600px; /* Asegura que la tabla tenga un ancho mínimo para scroll si es necesario */
 }
 #users-table th, #users-table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
+    white-space: nowrap; /* Evita que el texto de las celdas se rompa en varias líneas */
 }
 #users-table th {
     background-color: #002147;
@@ -172,4 +175,117 @@ body {
     margin-top: 15px;
     text-align: center;
     font-weight: bold;
+}
+
+/* ========================================= */
+/* Media Queries para Responsividad - dashboard.css */
+/* ========================================= */
+
+/* Para pantallas pequeñas (teléfonos y tablets pequeñas) */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* Apila el sidebar y el contenido principal */
+    }
+
+    .sidebar {
+        width: 100%; /* El sidebar ocupa todo el ancho */
+        height: auto; /* Altura automática */
+        padding: 10px 0; /* Padding reducido */
+        flex-direction: row; /* Elementos del sidebar en fila para móviles */
+        justify-content: space-around; /* Distribuye los elementos horizontalmente */
+        align-items: center;
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan si hay muchos */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .sidebar .logo,
+    .sidebar .user-profile {
+        margin-bottom: 0; /* Elimina margen inferior */
+        padding: 5px;
+        border-bottom: none; /* Elimina el separador */
+        width: auto; /* Ancho automático para flex */
+    }
+    .sidebar .logo img {
+        height: 40px; /* Logo más pequeño */
+    }
+    .sidebar .user-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.8rem;
+    }
+    .sidebar .user-initials {
+        width: 50px; /* Iniciales más pequeñas */
+        height: 50px;
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    .sidebar .user-profile p {
+        margin: 2px 0;
+        font-size: 0.75rem;
+    }
+    .sidebar nav {
+        width: 100%; /* La navegación ocupa todo el ancho */
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+    .sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap; /* Envuelve los elementos de la lista */
+        justify-content: center;
+        gap: 5px; /* Espacio entre los elementos del menú */
+    }
+    .sidebar nav ul li {
+        margin: 0; /* Elimina margen de lista */
+    }
+    .sidebar nav ul li a {
+        font-size: 0.9rem; /* Texto de menú más pequeño */
+        padding: 8px 12px; /* Padding reducido */
+    }
+
+    .main-content {
+        padding: 15px; /* Padding reducido en el contenido principal */
+    }
+    .main-header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .main-header h1 {
+        font-size: 1.5rem; /* Título principal más pequeño */
+    }
+
+    .content-section {
+        padding: 15px;
+    }
+
+    .card {
+        flex: 1 1 90%; /* Las tarjetas ocupan casi todo el ancho */
+        margin: 10px auto; /* Centrar las tarjetas */
+        max-width: 90%; /* Asegura que no se desborden */
+    }
+
+    /* Ajuste para la tabla en móviles */
+    #users-table th, #users-table td {
+        padding: 8px; /* Padding de celda reducido */
+        font-size: 0.85rem; /* Tamaño de fuente más pequeño en la tabla */
+    }
+}
+
+/* Para pantallas muy pequeñas (teléfonos en modo portrait) */
+@media (max-width: 400px) {
+    .sidebar nav ul {
+        flex-direction: column; /* Apila los elementos del menú en una columna */
+        align-items: center;
+    }
+    .sidebar nav ul li a {
+        padding: 8px 10px;
+        text-align: center;
+    }
+    .sidebar .user-profile {
+        /* Para pantallas muy estrechas, oculta el email para evitar desbordamiento */
+        font-size: 0.7rem;
+    }
+    .sidebar .user-profile p:last-child { /* Asumiendo que el email es el último p */
+        display: none;
+    }
 }
