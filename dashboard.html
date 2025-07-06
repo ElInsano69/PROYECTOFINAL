@@ -39,7 +39,6 @@
       top: 0;
       left: 0;
       overflow-y: auto;
-      transition: transform 0.3s ease;
     }
 
     .sidebar nav ul {
@@ -118,16 +117,7 @@
         cursor: pointer;
         padding: 10px;
       }
-
-      .sidebar {
-        transform: translateX(-100%); /* Ocultar sidebar inicialmente en móviles */
-      }
-
-      .sidebar.active {
-        transform: translateX(0); /* Mostrar sidebar cuando está activo */
-      }
     }
-
   </style>
 </head>
 <body>
@@ -141,7 +131,6 @@
       <span>Fundación Kinal</span>
     </div>
 
-    <!-- Eliminar el widget de usuario (el círculo) -->
     <div class="user-profile-widget" id="user-profile-widget" style="display: none;">
       <div class="user-initials" id="user-initials"></div>
       <div class="user-dropdown-panel" id="user-dropdown-panel">
@@ -176,11 +165,11 @@
         <h1>Bienvenido al Dashboard</h1>
       </header>
 
-      <!-- Sección Inicio -->
+      <!-- Sección de Inicio -->
       <section id="inicio-section" class="content-section active">
         <div class="welcome-text">
-            <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones...</p>
+          <p><strong>Bienvenida</strong></p>
+          <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones...</p>
         </div>
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
@@ -188,40 +177,40 @@
       <!-- Sección Apartado 1 -->
       <section id="apartado1-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Apartado 1</strong></p>
-            <p>Contenido específico para el Apartado 1...</p>
+          <p><strong>Apartado 1</strong></p>
+          <p>Contenido específico para el Apartado 1...</p>
         </div>
       </section>
 
       <!-- Sección Apartado 2 -->
       <section id="apartado2-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Apartado 2</strong></p>
-            <p>Contenido específico para el Apartado 2...</p>
+          <p><strong>Apartado 2</strong></p>
+          <p>Contenido para el apartado 2...</p>
         </div>
       </section>
 
       <!-- Sección Apartado 3 -->
       <section id="apartado3-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Apartado 3</strong></p>
-            <p>Contenido específico para el Apartado 3...</p>
+          <p><strong>Apartado 3</strong></p>
+          <p>Contenido para el apartado 3...</p>
         </div>
       </section>
 
       <!-- Sección Apartado 4 -->
       <section id="apartado4-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Apartado 4</strong></p>
-            <p>Contenido específico para el Apartado 4...</p>
+          <p><strong>Apartado 4</strong></p>
+          <p>Contenido para el apartado 4...</p>
         </div>
       </section>
 
       <!-- Sección Apartado 5 -->
       <section id="apartado5-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Apartado 5</strong></p>
-            <p>Contenido específico para el Apartado 5...</p>
+          <p><strong>Apartado 5</strong></p>
+          <p>Contenido para el apartado 5...</p>
         </div>
       </section>
 
@@ -261,10 +250,10 @@
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('usuario_actual');
         localStorage.removeItem('logueado');
-        window.location.href = 'index.html'; 
+        window.location.href = 'login.html';
     });
 
-    // Event Listeners para los apartados
+    // Event listeners para cambiar entre secciones
     document.getElementById('link-inicio').addEventListener('click', () => showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio')));
     document.getElementById('link-apartado1').addEventListener('click', () => showSection(document.getElementById('apartado1-section'), document.getElementById('link-apartado1')));
     document.getElementById('link-apartado2').addEventListener('click', () => showSection(document.getElementById('apartado2-section'), document.getElementById('link-apartado2')));
@@ -272,12 +261,8 @@
     document.getElementById('link-apartado4').addEventListener('click', () => showSection(document.getElementById('apartado4-section'), document.getElementById('link-apartado4')));
     document.getElementById('link-apartado5').addEventListener('click', () => showSection(document.getElementById('apartado5-section'), document.getElementById('link-apartado5')));
 
-    // Mostrar la página principal al inicio
+    // Mostrar la sección por defecto (Inicio)
     showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio'));
-
-    // Event Listeners para abrir/cerrar el menú lateral
-    sidebarToggleOpen.addEventListener('click', () => sidebar.classList.add('active'));
-    sidebarToggleClose.addEventListener('click', () => sidebar.classList.remove('active'));
   </script>
 
 </body>
