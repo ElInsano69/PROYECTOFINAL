@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
       display: flex;
-      background-color: #ecf0f1; /* Fondo claro para todo el sitio */
+      background-color: #ecf0f1; /* Fondo claro */
     }
 
     .dashboard-container {
@@ -23,19 +23,18 @@
 
     /* Estilo para la barra lateral */
     .sidebar {
-      background-color: #2c3e50; /* Color azul oscuro */
+      background-color: #3498db; /* Azul personalizado */
       width: 250px;
       height: 100vh;
-      display: none; /* Ocultamos por defecto */
-      transition: transform 0.3s ease;
       position: fixed;
       top: 0;
       left: 0;
+      transform: translateX(-250px); /* Inicialmente oculto */
+      transition: transform 0.3s ease-in-out;
     }
 
     .sidebar.active {
-      display: block;
-      transform: translateX(0);
+      transform: translateX(0); /* Aparece cuando se activa */
     }
 
     .sidebar nav ul {
@@ -46,18 +45,18 @@
 
     .sidebar nav ul li {
       padding: 15px;
-      border-bottom: 1px solid #34495e; /* Gris oscuro para separar los enlaces */
+      border-bottom: 1px solid #2980b9; /* Gris oscuro */
     }
 
     .sidebar nav ul li a {
-      color: white; /* Texto blanco en los enlaces */
+      color: white; /* Blanco */
       text-decoration: none;
       font-size: 18px;
       display: block;
     }
 
     .sidebar nav ul li a:hover {
-      background-color: #2980b9; /* Azul claro cuando pasas el mouse */
+      background-color: #1abc9c; /* Azul más claro para el hover */
     }
 
     /* Estilo para la parte del contenido principal */
@@ -81,7 +80,7 @@
 
     /* Estilos para la cabecera */
     .global-header {
-      background-color: #34495e; /* Azul oscuro */
+      background-color: #2980b9; /* Azul claro */
       color: white;
       padding: 10px 20px;
       display: flex;
@@ -103,13 +102,8 @@
         margin-left: 250px;
       }
 
-      .dashboard-container {
-        display: flex;
-      }
-
-      /* Agregar el ícono de cerrar el menú (X) visible en PC */
       .sidebar-toggle-close {
-        display: block; /* Asegurarse de que la X se vea en PC */
+        display: block; /* Mostrar X en PC */
       }
     }
 
@@ -118,7 +112,6 @@
         margin-left: 0;
       }
 
-      /* Cambios para dispositivos móviles */
       .sidebar {
         transform: translateX(-250px);
       }
@@ -127,7 +120,7 @@
         transform: translateX(0);
       }
 
-      /* Agregar el ícono de cerrar */
+      /* Estilo de la "X" en móvil */
       .sidebar .sidebar-toggle {
         position: absolute;
         top: 20px;
@@ -192,9 +185,8 @@
       <section id="dashboard-home-section" class="content-section active">
         <div class="welcome-text">
             <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. Los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
-            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
-            <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
+            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos...</p>
+            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo...</p>
         </div>
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
@@ -244,6 +236,16 @@
     // Event Listeners
     sidebarToggleOpen.addEventListener('click', () => sidebar.classList.add('active'));
     sidebarToggleClose.addEventListener('click', () => sidebar.classList.remove('active'));
+
+    // Cerrar el menú cuando se cambia de sección
+    const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
