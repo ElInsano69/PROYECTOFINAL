@@ -54,9 +54,6 @@
     const registerForm = document.getElementById('register-form');
     const registerError = document.getElementById('register-error');
 
-    // !!! IMPORTANTE: Asegúrate de que esta URL sea la correcta para tu backend desplegado en Render.
-    // Si la ruta /api es parte de tu base URL en Render, quítala de aquí.
-    // Ej: Si tu URL de Render es 'https://mi-backend.onrender.com/api', entonces aquí sería solo 'https://mi-backend.onrender.com'
     const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
 
     showRegisterBtn.addEventListener('click', () => {
@@ -81,19 +78,21 @@
         setTimeout(() => {
             mainContent.style.display = 'none';
 
-            welcomeScreen.textContent = `BIENVENIDO ${userDisplayName.toUpperCase()}`;
+            // *** LA LÍNEA MODIFICADA ESTÁ AQUÍ ***
+            welcomeScreen.textContent = `BIENVENID@ ${userDisplayName.toUpperCase()}`;
+            // **********************************
+
             welcomeScreen.classList.add('show');
 
             setTimeout(() => {
                 welcomeScreen.classList.remove('show');
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
-                }, 500); // Pequeño retraso antes de redirigir después de que el mensaje desaparece
-            }, 3000); // Muestra el mensaje de bienvenida por 3 segundos
-        }, 800); // Duración de la animación de salida del formulario
+                }, 500);
+            }, 3000);
+        }, 800);
     }
 
-    // --- Manejo del Login con Backend ---
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = loginForm.email.value.trim();
@@ -114,8 +113,8 @@
 
             if (response.ok) {
                 localStorage.setItem('logueado', 'si');
-                localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Guarda el objeto completo del usuario
-                showWelcome(data.user.nombre); // Usa el nombre del usuario recibido del backend
+                localStorage.setItem('usuario_actual', JSON.stringify(data.user)); 
+                showWelcome(data.user.nombre); 
             } else {
                 loginError.textContent = data.message || 'Error al iniciar sesión. Intenta de nuevo.';
             }
@@ -125,7 +124,6 @@
         }
     });
 
-    // --- Manejo del Registro con Backend ---
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const nombre = registerForm.nombre.value.trim();
@@ -158,11 +156,10 @@
             const data = await response.json();
 
             if (response.ok) {
-                // CAMBIO PRINCIPAL PARA EL REGISTRO: Guardar usuario y redirigir
                 localStorage.setItem('logueado', 'si');
-                localStorage.setItem('usuario_actual', JSON.stringify(data.user)); // Asegúrate de que tu backend devuelve el usuario registrado
-                showWelcome(data.user.nombre); // Usa la misma función de bienvenida/redirección que el login
-                registerForm.reset(); // Limpia el formulario de registro
+                localStorage.setItem('usuario_actual', JSON.stringify(data.user)); 
+                showWelcome(data.user.nombre); 
+                registerForm.reset(); 
             } else {
                 registerError.textContent = data.message || 'Error al registrar usuario. Intenta de nuevo.';
             }
@@ -172,7 +169,6 @@
         }
     });
 
-    // Verifica si el usuario ya está logueado al cargar la página
     document.addEventListener('DOMContentLoaded', () => {
         const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
         if (localStorage.getItem('logueado') === 'si' && usuarioActual && usuarioActual.nombre) {
