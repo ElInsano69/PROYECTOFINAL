@@ -1,67 +1,74 @@
-/* General */
+/* General y Reseteo */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
     color: #002147;
-    display: flex; /* Permite que el .dashboard-container ocupe el espacio */
+    display: flex;
+    flex-direction: column; /* Cambiado a columna para acomodar la nueva cabecera global */
     min-height: 100vh;
-    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+    overflow-x: hidden;
+}
+
+/* Nueva Cabecera Global (similar a login.html) */
+.global-header {
+    background-color: #002147;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 15px;
+    flex-shrink: 0; /* Para que no se encoja en flexbox */
+}
+.global-header img {
+    height: 48px;
+}
+.global-header span {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 /* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
 .dashboard-container {
     display: flex;
+    flex-grow: 1; /* Ocupa el espacio restante después de la cabecera global */
     width: 100%;
-    min-height: 100vh; /* Asegura que ocupe al menos la altura de la ventana */
+    /* min-height: calc(100vh - 70px); // Ajuste si la cabecera global tiene altura fija */
 }
 
-/* Sidebar (Menú lateral) - ESTILOS BASE PARA ESCRITORIO (Mobile-First podría empezar aquí más pequeño) */
+/* Sidebar (Menú lateral) - ESTILOS PARA ESCRITORIO */
 .sidebar {
-    width: 250px; /* Ancho fijo para escritorio */
+    width: 250px;
     background-color: #002147;
     color: white;
     padding: 20px 0;
     display: flex;
-    flex-direction: column; /* Apilado verticalmente */
+    flex-direction: column;
     align-items: center;
     box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    flex-shrink: 0; /* Evita que el sidebar se encoja */
-    transition: width 0.3s ease; /* Para futuras animaciones de colapsado si se implementan */
+    flex-shrink: 0;
+    transition: all 0.3s ease; /* Transición para abrir/cerrar en móvil */
+    position: relative; /* Para el botón de cerrar */
 }
-.sidebar .logo {
-    margin-bottom: 30px;
-    text-align: center;
-}
-.sidebar .logo img {
-    height: 60px;
-}
+
+/* Ocultar el perfil del usuario del sidebar ya que se movió */
 .sidebar .user-profile {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    width: 80%; /* Asegura que el perfil tenga un ancho razonable */
-    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    display: none;
 }
-.sidebar .user-initials {
-    width: 70px;
-    height: 70px;
-    background-color: white;
-    color: #002147;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 0 auto 10px auto;
+/* Ocultar el logo del sidebar ya que se movió */
+.sidebar .logo {
+    display: none;
 }
-.sidebar .user-profile p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-    word-wrap: break-word; /* Permite que el texto largo se rompa */
+
+.sidebar nav {
+    width: 100%;
+    flex-grow: 1; /* Para que la navegación ocupe el espacio */
+    margin-top: 20px; /* Margen superior para separar de donde estaba el logo */
 }
 .sidebar nav ul {
     list-style: none;
@@ -69,41 +76,145 @@ body {
     width: 100%;
 }
 .sidebar nav ul li {
-    margin: 10px 0;
+    margin: 5px 0;
 }
 .sidebar nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     font-size: 1.1rem;
-    padding: 10px 20px;
-    display: block; /* Para que el padding y hover funcionen en todo el bloque */
+    padding: 12px 20px;
+    display: block;
     transition: background-color 0.3s ease;
 }
 .sidebar nav ul li a:hover,
 .sidebar nav ul li a.active {
     background-color: #004080;
-    border-radius: 5px;
+    border-radius: 0; /* Mantener bordes rectos si quieres */
 }
+
+/* Botones de toggle del sidebar (visibles solo en móvil por defecto) */
+.sidebar-toggle {
+    display: none; /* Oculto por defecto en escritorio */
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+}
+#sidebar-toggle-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white; /* Asegúrate de que el color sea visible */
+    z-index: 100;
+}
+
 
 /* Contenido Principal (Main Content) */
 .main-content {
-    flex-grow: 1; /* Ocupa el espacio restante */
+    flex-grow: 1;
     padding: 20px;
-    overflow-y: auto; /* Permite scroll vertical si el contenido es largo */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 .main-header {
     background-color: white;
-    padding: 20px;
+    padding: 15px 20px; /* Reducido el padding vertical ligeramente */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     margin-bottom: 30px;
-    text-align: center;
+    display: flex; /* Para alinear el título y el perfil */
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Para posicionar el dropdown */
 }
 .main-header h1 {
     margin: 0;
     color: #002147;
+    font-size: 1.8rem; /* Tamaño de fuente por defecto para escritorio */
 }
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre el toggle y el título */
+}
+
+/* Perfil de Usuario en la esquina superior derecha del main-header */
+.user-profile-widget {
+    position: relative;
+    cursor: pointer;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+.user-profile-widget .user-initials {
+    width: 50px; /* Tamaño del círculo de iniciales */
+    height: 50px;
+    background-color: #002147;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+}
+.user-profile-widget .user-initials:hover {
+    transform: scale(1.05);
+}
+
+/* Panel Desplegable del Perfil */
+.user-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 10px); /* Debajo del círculo de iniciales */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 15px;
+    min-width: 220px;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.user-dropdown-panel.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+.user-dropdown-panel p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-dropdown-panel p strong {
+    font-size: 1rem;
+    color: #002147;
+}
+.user-dropdown-panel button {
+    width: 100%;
+    padding: 8px 15px;
+    background-color: #dc3545; /* Color rojo para cerrar sesión */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+.user-dropdown-panel button:hover {
+    background-color: #c82333;
+}
+
 
 /* Secciones de Contenido */
 .content-section {
@@ -112,14 +223,15 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     margin-bottom: 20px;
+    flex-grow: 1; /* Ocupa el espacio disponible */
 }
 
 /* Estilos para las tarjetas del dashboard (Home section) */
 .dashboard-cards-grid {
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente línea */
-    justify-content: space-around; /* Distribuye el espacio entre/alrededor de las tarjetas */
-    gap: 20px; /* Espacio entre las tarjetas */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
 }
 
 /* Estilo para cada tarjeta individual */
@@ -129,11 +241,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     text-align: center;
-    /* Para 2 columnas en escritorio, 1 en móvil. flex-basis calcula el ancho */
-    flex: 1 1 calc(50% - 40px); /* 50% menos el gap total entre ellas (20px * 2) */
-    min-width: 280px; /* Asegura que la tarjeta tenga un tamaño mínimo legible */
-    max-width: 350px; /* Evita que se estiren demasiado en pantallas muy grandes */
-    box-sizing: border-box; /* Importante para el cálculo del ancho con padding */
+    flex: 1 1 calc(50% - 40px); /* 2 columnas en escritorio */
+    min-width: 280px;
+    max-width: 350px;
+    box-sizing: border-box;
 }
 .card h3 {
     color: #002147;
@@ -147,20 +258,20 @@ body {
 
 /* Estilos para la tabla de usuarios */
 .users-table-container {
-    overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
-    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 #users-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    min-width: 600px; /* Asegura que la tabla tenga un ancho mínimo para scroll si es necesario */
+    min-width: 600px;
 }
 #users-table th, #users-table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
-    white-space: nowrap; /* Evita que el texto de las celdas se rompa en varias líneas */
+    white-space: nowrap;
 }
 #users-table th {
     background-color: #002147;
@@ -188,166 +299,167 @@ body {
 
 /* Para pantallas medianas (tablets en portrait o laptops pequeñas) */
 @media (max-width: 992px) {
+    .global-header {
+        height: 60px; /* Header global un poco más pequeño */
+    }
+    .global-header img {
+        height: 40px;
+    }
+    .global-header span {
+        font-size: 1.5rem;
+    }
+
     .sidebar {
-        width: 200px; /* Sidebar un poco más estrecho */
-        padding: 15px 0;
-    }
-    .sidebar .logo img {
-        height: 50px;
-    }
-    .sidebar .user-initials {
-        width: 60px;
-        height: 60px;
-        font-size: 1.8rem;
-    }
-    .sidebar .user-profile p {
-        font-size: 0.85rem;
+        width: 180px; /* Sidebar un poco más estrecho */
     }
     .sidebar nav ul li a {
         font-size: 1rem;
-        padding: 8px 15px;
+        padding: 10px 15px;
     }
 
-    .main-content {
-        padding: 15px;
-    }
-    .main-header {
-        padding: 15px;
-        margin-bottom: 25px;
-    }
     .main-header h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    .user-profile-widget .user-initials {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    .user-dropdown-panel {
+        min-width: 200px;
+        padding: 10px;
     }
 
     .card {
-        flex: 1 1 calc(50% - 30px); /* Ajuste para el gap */
-        min-width: 220px;
-        max-width: none; /* Permite que ocupe más espacio si es necesario */
+        flex: 1 1 calc(50% - 30px);
+        min-width: 250px;
     }
 }
 
-/* Para pantallas pequeñas (teléfonos y tablets muy pequeñas, hasta 768px) */
+/* Para pantallas pequeñas (teléfonos y tablets, hasta 768px) */
 @media (max-width: 768px) {
+    .global-header {
+        height: 50px; /* Aún más pequeño */
+    }
+    .global-header img {
+        height: 35px;
+    }
+    .global-header span {
+        font-size: 1.3rem;
+    }
+
     .dashboard-container {
-        flex-direction: column; /* Apila el sidebar y el contenido principal */
+        flex-direction: row; /* Mantener row para que el sidebar pueda aparecer lateralmente */
+        position: relative; /* Necesario para posicionar el sidebar off-canvas */
     }
 
+    /* Sidebar Off-Canvas para móviles */
     .sidebar {
-        width: 100%; /* El sidebar ocupa todo el ancho */
-        height: auto; /* Altura automática */
-        padding: 10px 0;
-        flex-direction: row; /* Elementos del sidebar en fila */
-        justify-content: space-around; /* Distribuye el espacio */
-        align-items: center;
-        flex-wrap: wrap; /* Permite que los elementos se envuelvan si hay muchos */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        position: fixed; /* Fijo en la pantalla */
+        top: 0;
+        left: -250px; /* Oculto fuera de la pantalla */
+        height: 100%;
+        width: 250px; /* Ancho fijo cuando está abierto */
+        padding-top: 60px; /* Espacio para el icono de cierre */
+        z-index: 1001; /* Por encima de todo */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
     }
-    .sidebar .logo,
-    .sidebar .user-profile {
-        margin-bottom: 0;
-        padding: 5px;
-        border-bottom: none;
-        width: auto; /* Ancho automático para flex */
-    }
-    .sidebar .logo img {
-        height: 40px; /* Logo más pequeño */
-    }
-    .sidebar .user-profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 0.8rem;
-        text-align: center;
-    }
-    .sidebar .user-initials {
-        width: 50px; /* Iniciales más pequeñas */
-        height: 50px;
-        font-size: 1.5rem;
-        margin-bottom: 5px;
-    }
-    .sidebar .user-profile p {
-        margin: 2px 0;
-        font-size: 0.75rem;
-        white-space: nowrap; /* Evita que el email se rompa */
-        overflow: hidden; /* Oculta el desbordamiento si no cabe */
-        text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
-        max-width: 100px; /* Limita el ancho del texto del email */
-    }
-    .sidebar nav {
-        width: 100%; /* La navegación ocupa todo el ancho */
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-    }
-    .sidebar nav ul {
-        display: flex;
-        flex-wrap: wrap; /* Envuelve los elementos del menú */
-        justify-content: center;
-        gap: 5px; /* Espacio entre los elementos del menú */
-    }
-    .sidebar nav ul li {
-        margin: 0;
-    }
-    .sidebar nav ul li a {
-        font-size: 0.9rem; /* Texto de menú más pequeño */
-        padding: 8px 12px; /* Padding reducido */
+    .sidebar.active {
+        left: 0; /* Se desliza para aparecer */
     }
 
+    /* Mostrar botón de hamburguesa y de cerrar en móvil */
+    .sidebar-toggle {
+        display: block; /* Muestra los iconos */
+    }
+    #sidebar-toggle-open {
+        color: #002147; /* Color oscuro para el botón de abrir en el main-header */
+    }
+
+
+    /* Ajustes para el main-content cuando el sidebar está oculto */
     .main-content {
-        padding: 15px;
+        padding: 10px;
+        transition: margin-left 0.3s ease; /* Transición para el empuje */
     }
     .main-header {
-        padding: 15px;
-        margin-bottom: 20px;
+        padding: 10px 15px;
     }
     .main-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
-
-    .content-section {
-        padding: 15px;
+    .user-profile-widget .user-initials {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .user-dropdown-panel {
+        top: calc(100% + 5px); /* Más cerca del círculo */
+        min-width: 180px;
+        padding: 8px;
+    }
+    .user-dropdown-panel p {
+        font-size: 0.8rem;
+    }
+    .user-dropdown-panel p strong {
+        font-size: 0.9rem;
+    }
+    .user-dropdown-panel button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 
     .dashboard-cards-grid {
-        flex-direction: column; /* Apila las tarjetas verticalmente */
-        align-items: center; /* Centra las tarjetas apiladas */
+        flex-direction: column; /* Apila las tarjetas */
+        align-items: center;
         gap: 15px;
     }
-
     .card {
-        flex: 1 1 100%; /* Cada tarjeta ocupa todo el ancho disponible */
-        max-width: 95%; /* Un poco de margen para que no toque los bordes */
-        min-width: unset; /* Elimina el mínimo para que se adapte mejor */
+        flex: 1 1 100%;
+        max-width: 95%; /* Se adapta al ancho del contenedor */
+        min-width: unset;
     }
 
-    #users-table th, #users-table td {
-        padding: 8px;
-        font-size: 0.85rem;
-    }
     #users-table {
-        min-width: 500px; /* Puede que aún necesite scroll en pantallas muy pequeñas */
+        min-width: 450px; /* Mantener un min-width para el scroll horizontal */
+    }
+    #users-table th, #users-table td {
+        font-size: 0.8rem;
+        padding: 7px;
     }
 }
 
 /* Para pantallas muy pequeñas (teléfonos en modo portrait - menos de 480px) */
 @media (max-width: 480px) {
-    .sidebar .user-profile p:nth-of-type(2) { /* Oculta el email si la pantalla es muy estrecha */
-        display: none;
+    .global-header {
+        height: 45px;
     }
-    .sidebar nav ul {
-        flex-direction: column; /* Apila los enlaces de navegación */
-        align-items: center;
+    .global-header img {
+        height: 30px;
     }
-    .sidebar nav ul li a {
-        padding: 8px; /* Más pequeño aún */
-        text-align: center;
-        width: 100%; /* Ocupa todo el ancho del contenedor de la lista */
-        box-sizing: border-box;
+    .global-header span {
+        font-size: 1.1rem;
     }
+
     .main-header h1 {
-        font-size: 1.3rem;
-    }
-    .content-section h2 {
         font-size: 1.2rem;
+    }
+    .user-profile-widget .user-initials {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    .user-dropdown-panel {
+        min-width: 160px;
+    }
+    .sidebar {
+        width: 220px; /* Sidebar un poco más estrecho para pantallas muy pequeñas */
+        left: -220px;
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    #users-table {
+        min-width: 380px; /* Reducir aún más el min-width si es necesario */
     }
 }

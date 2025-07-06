@@ -2,21 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Dashboard - Fundación Kinal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Fundación Kinal</title>
   <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
+  <header class="global-header">
+      <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+      <span>Fundación Kinal</span>
+  </header>
+
   <div class="dashboard-container">
-    <aside class="sidebar">
-      <div class="logo">
-        <img src="img/kinal-logo-2.png" alt="Logo Kinal">
-      </div>
-      <div class="user-profile">
-        <div class="user-initials" id="user-initials"></div>
-        <p id="user-name">Nombre Usuario</p>
-        <p id="user-email">email@example.com</p>
-      </div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-toggle" id="sidebar-toggle-close">
+        <i class="fas fa-times"></i> </div>
       <nav>
         <ul>
           <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
@@ -30,7 +31,21 @@
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Bienvenido al Dashboard</h1>
+        <div class="header-left">
+          <div class="sidebar-toggle" id="sidebar-toggle-open">
+              <i class="fas fa-bars"></i> </div>
+          <h1>Bienvenido al Dashboard</h1>
+        </div>
+
+        <div class="user-profile-widget" id="user-profile-widget">
+          <div class="user-initials" id="user-initials"></div>
+          <div class="user-dropdown-panel" id="user-dropdown-panel">
+            <p><strong><span id="dropdown-user-name"></span></strong></p>
+            <p><span id="dropdown-user-email"></span></p>
+            <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
+            <button id="dropdown-logout-button">Cerrar sesión</button>
+          </div>
+        </div>
       </header>
 
       <section id="dashboard-home-section" class="content-section active">
@@ -45,7 +60,7 @@
             <h3>Cursos Activos</h3>
             <p>45</p>
           </div>
-          </div>
+        </div>
       </section>
 
       <section id="admin-users-section" class="content-section" style="display: none;">
@@ -73,66 +88,71 @@
   </div>
 
   <script>
-    const userNameSpan = document.getElementById('user-name');
-    const userEmailSpan = document.getElementById('user-email');
+    // Referencias a elementos UI
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggleOpen = document.getElementById('sidebar-toggle-open');
+    const sidebarToggleClose = document.getElementById('sidebar-toggle-close');
+
+    const userProfileWidget = document.getElementById('user-profile-widget');
     const userInitials = document.getElementById('user-initials');
-    const logoutButton = document.getElementById('logout-button');
+    const userDropdownPanel = document.getElementById('user-dropdown-panel');
+    const dropdownUserName = document.getElementById('dropdown-user-name');
+    const dropdownUserEmail = document.getElementById('dropdown-user-email');
+    const dropdownUserRole = document.getElementById('dropdown-user-role');
+    const dropdownLogoutButton = document.getElementById('dropdown-logout-button');
 
     const linkDashboard = document.getElementById('link-dashboard');
     const linkAdminUsers = document.getElementById('link-admin-users');
-    const adminLink = document.getElementById('admin-link'); // El <li> que contiene el enlace de admin
+    const adminLink = document.getElementById('admin-link'); 
 
     const dashboardHomeSection = document.getElementById('dashboard-home-section');
     const adminUsersSection = document.getElementById('admin-users-section');
     const usersTableBody = document.querySelector('#users-table tbody');
     const usersErrorMessage = document.getElementById('users-error-message');
 
-    // !!! IMPORTANTE: AJUSTA ESTA URL para que apunte a tu backend desplegado en Render.
-    // Si tu backend tiene la ruta '/api' en su URL base de Render, quítala de aquí.
-    // Ej: Si tu URL de Render es 'https://mi-backend.onrender.com/api', entonces aquí sería solo 'https://mi-backend.onrender.com'
+    // URL de tu backend
     const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
 
     // Función para mostrar la sección correcta del dashboard
     function showSection(sectionToShow, activeLink) {
-        // Ocultar todas las secciones de contenido
         document.querySelectorAll('.content-section').forEach(section => {
             section.style.display = 'none';
             section.classList.remove('active');
         });
-        // Mostrar la sección deseada
         sectionToShow.style.display = 'block';
         sectionToShow.classList.add('active');
 
-        // Remover 'active' de todos los enlaces del sidebar
         document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
             link.classList.remove('active');
         });
-        // Añadir 'active' al enlace actual
         if (activeLink) {
             activeLink.classList.add('active');
+        }
+
+        // Cierra el sidebar en móviles después de seleccionar una opción
+        if (window.innerWidth <= 768) { // Usar el mismo breakpoint que en CSS
+            sidebar.classList.remove('active');
         }
     }
 
     // Función para cargar usuarios desde el backend (para administradores)
     async function loadUsers() {
-        usersTableBody.innerHTML = ''; // Limpiar tabla antes de cargar
-        usersErrorMessage.textContent = ''; // Limpiar mensajes de error
+        usersTableBody.innerHTML = '';
+        usersErrorMessage.textContent = '';
 
         const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
-        // Verificar si el usuario está logueado y tiene rol de admin
         if (!usuarioActual || usuarioActual.rol !== 'admin') {
             usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
             return;
         }
 
         try {
-            // Se usa POST para enviar el email del admin por seguridad (aunque GET con headers también es posible)
             const response = await fetch(`${BACKEND_URL}/users`, {
-                method: 'POST',
+                method: 'POST', // Usamos POST como lo tienes en tu backend
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ userEmail: usuarioActual.email }) // Envía el email del admin
+                body: JSON.stringify({ userEmail: usuarioActual.email })
             });
 
             const data = await response.json();
@@ -146,7 +166,6 @@
                         row.insertCell(2).textContent = user.apellido;
                         row.insertCell(3).textContent = user.email;
                         row.insertCell(4).textContent = user.rol;
-                        // Formatear la fecha de registro si existe
                         const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
                         row.insertCell(5).textContent = createdAt;
                     });
@@ -162,35 +181,76 @@
         }
     }
 
-    // Event Listeners para la navegación
+    // --- Event Listeners ---
+
+    // Navegación principal del sidebar
     linkDashboard.addEventListener('click', (e) => {
         e.preventDefault();
         showSection(dashboardHomeSection, linkDashboard);
     });
 
-    if (linkAdminUsers) { // Asegúrate de que el elemento exista antes de añadir el listener
+    if (linkAdminUsers) {
         linkAdminUsers.addEventListener('click', (e) => {
             e.preventDefault();
             showSection(adminUsersSection, linkAdminUsers);
-            loadUsers(); // Carga los usuarios cuando se accede a esta sección
+            loadUsers(); 
         });
     }
 
-    // Lógica al cargar la página
+    // Botón de cerrar sesión
+    const performLogout = () => {
+        localStorage.removeItem('logueado');
+        localStorage.removeItem('usuario_actual');
+        window.location.href = 'index.html';
+    };
+    // El botón de "Cerrar sesión" en el sidebar
+    document.getElementById('logout-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        performLogout();
+    });
+    // El botón de "Cerrar sesión" en el panel desplegable del perfil
+    dropdownLogoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        performLogout();
+    });
+
+
+    // Lógica para el panel desplegable del perfil de usuario
+    userProfileWidget.addEventListener('click', (event) => {
+        // Evita que el clic se propague al documento y cierre el panel inmediatamente
+        event.stopPropagation(); 
+        userDropdownPanel.classList.toggle('show');
+    });
+
+    // Cierra el panel desplegable si se hace clic fuera de él
+    document.addEventListener('click', (event) => {
+        if (!userProfileWidget.contains(event.target) && userDropdownPanel.classList.contains('show')) {
+            userDropdownPanel.classList.remove('show');
+        }
+    });
+
+    // Lógica para abrir/cerrar el sidebar en móviles
+    sidebarToggleOpen.addEventListener('click', () => {
+        sidebar.classList.add('active');
+    });
+
+    sidebarToggleClose.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+    });
+
+
+    // Lógica al cargar la página (DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', () => {
         const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
         if (usuario && localStorage.getItem('logueado') === 'si') {
-            // Actualizar información del perfil
-            userNameSpan.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
-            userEmailSpan.textContent = usuario.email;
-            let initials = '';
-            if (usuario.nombre) {
-                initials += usuario.nombre.charAt(0).toUpperCase();
-            }
-            if (usuario.apellido) {
-                initials += usuario.apellido.charAt(0).toUpperCase();
-            }
-            userInitials.textContent = initials || 'U';
+            // Actualizar información del perfil en el widget y el dropdown
+            userInitials.textContent = (usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '') +
+                                       (usuario.apellido ? usuario.apellido.charAt(0).toUpperCase() : '');
+            if (!userInitials.textContent) userInitials.textContent = 'U'; // Default si no hay nombre/apellido
+
+            dropdownUserName.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
+            dropdownUserEmail.textContent = usuario.email;
+            dropdownUserRole.textContent = usuario.rol;
 
             // Mostrar el enlace de admin si el rol es 'admin'
             if (usuario.rol === 'admin') {
@@ -203,17 +263,14 @@
             showSection(dashboardHomeSection, linkDashboard);
 
         } else {
-            // Si no hay usuario logueado en localStorage, redirigir a la página de login
+            // Si no hay usuario logueado, redirigir a login
             window.location.href = 'index.html';
         }
-    });
 
-    // Lógica para el botón de cerrar sesión
-    logoutButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('logueado');
-        localStorage.removeItem('usuario_actual');
-        window.location.href = 'index.html';
+        // Si la pantalla es móvil al cargar, oculta el sidebar por defecto
+        if (window.innerWidth <= 768) {
+             sidebar.classList.remove('active'); // Asegura que esté oculto inicialmente
+        }
     });
   </script>
 
