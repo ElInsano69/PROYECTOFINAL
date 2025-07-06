@@ -21,17 +21,20 @@ body {
     padding: 0 20px;
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: relative; /* Importante para que z-index funcione */
-    z-index: 9999; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar visibilidad y clicabilidad */
+    position: relative;
+    z-index: 9999;
 }
+
 .global-header .header-left-section {
     display: flex;
     align-items: center;
     gap: 15px;
 }
+
 .global-header img {
     height: 48px;
 }
+
 .global-header span {
     color: white;
     font-size: 1.8rem;
@@ -42,17 +45,38 @@ body {
 
 /* Botón de hamburguesa (siempre visible por defecto) */
 .global-header .sidebar-toggle {
-    display: block; /* Muestra el botón por defecto en todas las pantallas */
+    display: block;
     cursor: pointer;
     font-size: 1.8rem;
     color: white;
     margin-right: 10px;
-    z-index: 10000; /* Aún más alto que el header para asegurarse */
+    z-index: 10000;
 }
 
 /* Perfil de Usuario en la esquina superior derecha del global-header */
 .user-profile-widget {
-    display: none; /* Oculta el círculo completamente en todas las pantallas */
+    position: relative;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.user-profile-widget .user-initials {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    color: #002147;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.user-profile-widget .user-initials:hover {
+    transform: scale(1.05);
 }
 
 /* Panel Desplegable del Perfil */
@@ -69,28 +93,29 @@ body {
     display: none;
     flex-direction: column;
     gap: 8px;
-    z-index: 10001; /* Z-INDEX EXTREMADAMENTE ALTO, encima de todo */
+    z-index: 10001;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .user-dropdown-panel.show {
     display: flex;
     opacity: 1;
     transform: translateY(0);
 }
+
 .user-dropdown-panel p {
     margin: 0;
     font-size: 0.9rem;
     color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
+
 .user-dropdown-panel p strong {
     font-size: 1rem;
     color: #002147;
 }
+
 .user-dropdown-panel button {
     width: 100%;
     padding: 8px 15px;
@@ -103,23 +128,24 @@ body {
     transition: background-color 0.3s ease;
     margin-top: 10px;
 }
+
 .user-dropdown-panel button:hover {
     background-color: #c82333;
 }
 
-/* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
+/* Contenedor principal del dashboard */
 .dashboard-container {
     display: flex;
     flex-grow: 1;
     width: 100%;
     position: relative;
-    z-index: 1; /* Asegurar que el contenedor principal esté por debajo del header */
+    z-index: 1;
 }
 
 /* Sidebar (Menú lateral) */
 .sidebar {
     width: 250px;
-    background-color: #002147;
+    background-color: #002147; /* Azul como el resto del diseño */
     color: white;
     padding: 20px 0;
     display: flex;
@@ -128,41 +154,39 @@ body {
     box-shadow: 2px 0 5px rgba(0,0,0,0.2);
     flex-shrink: 0;
     transition: transform 0.3s ease;
-    position: sticky; /* En escritorio se pega */
+    position: sticky;
     top: 0;
     height: calc(100vh - 70px);
-    z-index: 10; /* Z-index normal para escritorio, pero será anulado en móvil si es necesario */
-    transform: translateX(0); /* Por defecto visible en escritorio */
+    z-index: 10;
+    transform: translateX(0); /* Visible por defecto */
 }
 
-/* Estado del Sidebar cuando NO está activo (principalmente para móvil) */
+/* Estado del Sidebar cuando NO está activo */
 .sidebar:not(.active) {
-    transform: translateX(-250px); /* Oculto completamente fuera de la vista */
-    position: fixed; /* Se fija para poder moverlo off-canvas */
-    height: 100vh; /* Ocupa toda la altura de la pantalla en móvil */
+    transform: translateX(-250px); /* Oculto completamente */
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 9998; /* Un Z-index alto para cuando está oculto y fuera del flujo, pero por debajo de elementos interactivos clave */
+    z-index: 9998;
 }
 
-/* Ocultar el perfil y logo del sidebar ya que se movieron */
-.sidebar .user-profile, .sidebar .logo {
-    display: none;
-}
-
+/* Panel de navegación del sidebar */
 .sidebar nav {
     width: 100%;
     flex-grow: 1;
     margin-top: 0;
 }
+
 .sidebar nav ul {
     list-style: none;
     padding: 0;
     width: 100%;
 }
+
 .sidebar nav ul li {
     margin: 5px 0;
 }
+
 .sidebar nav ul li a {
     color: white;
     text-decoration: none;
@@ -172,24 +196,25 @@ body {
     display: block;
     transition: background-color 0.3s ease;
 }
+
 .sidebar nav ul li a:hover,
-.sidebar nav ul li a.active {
-    background-color: #004080;
+.sidebar nav ul li.active {
+    background-color: #004080; /* Azul más claro */
     border-radius: 0;
 }
 
-/* Botón de cerrar el sidebar (siempre visible por defecto) */
+/* Botón para cerrar el sidebar */
 #sidebar-toggle-close {
-    display: block; /* Muestra el botón por defecto en todas las pantallas */
-    position: absolute; /* Debe ser absolute dentro del sidebar */
+    display: block;
+    position: absolute;
     top: 15px;
     right: 15px;
     color: white;
     font-size: 1.5rem;
-    z-index: 10000; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar clicabilidad */
+    z-index: 10000;
 }
 
-/* Contenido Principal (Main Content) */
+/* Contenido Principal */
 .main-content {
     flex-grow: 1;
     padding: 20px;
@@ -197,8 +222,9 @@ body {
     display: flex;
     flex-direction: column;
     transition: margin-left 0.3s ease;
-    z-index: 5; /* Asegurar que esté por debajo del sidebar */
 }
+
+/* Secciones de contenido */
 .section-header {
     background-color: white;
     padding: 15px 20px;
@@ -207,23 +233,14 @@ body {
     margin-bottom: 30px;
     text-align: center;
 }
+
 .section-header h1 {
     margin: 0;
     color: #002147;
     font-size: 1.8rem;
 }
 
-/* Secciones de Contenido */
-.content-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-/* Estilos para las tarjetas del dashboard (Home section) */
+/* Estilos para las tarjetas del dashboard */
 .dashboard-cards-grid {
     display: flex;
     flex-wrap: wrap;
@@ -243,10 +260,12 @@ body {
     max-width: 350px;
     box-sizing: border-box;
 }
+
 .card h3 {
     color: #002147;
     margin-top: 0;
 }
+
 .card p {
     font-size: 1.5rem;
     font-weight: bold;
@@ -254,44 +273,79 @@ body {
 }
 
 /* Estilos para la tabla de usuarios */
-.users-table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
 #users-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     min-width: 600px;
 }
+
 #users-table th, #users-table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
     white-space: nowrap;
 }
+
 #users-table th {
     background-color: #002147;
     color: white;
     font-weight: bold;
 }
+
 #users-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/* Responsive (Medios móviles) */
+#users-table tr:hover {
+    background-color: #e6e6e6;
+}
+
+/* ========================================= */
+/* Responsivo para pantallas pequeñas (móviles y tablets) */
 @media (max-width: 768px) {
-    /* Sidebar */
-    .sidebar {
-        width: 100%;
-        transform: translateX(-100%); /* Oculta el sidebar en móviles */
-    }
-    .sidebar.active {
-        transform: translateX(0); /* Muestra el sidebar en móviles */
+    .global-header {
+        height: 60px;
+        padding: 0 10px;
     }
 
-    /* Ocultar perfil de usuario en móviles */
+    .global-header span {
+        font-size: 1.5rem;
+    }
+
+    .sidebar {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        padding: 10px;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-top: 60px;
+        padding: 10px;
+    }
+
+    .sidebar nav ul li a {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    /* Botón flotante de inicio (en móvil) */
+    .global-header .sidebar-toggle {
+        display: block;
+    }
+
     .user-profile-widget {
-        display: none; /* Oculta el círculo completamente en móviles */
+        margin-left: auto;
+        padding: 10px;
     }
 }
