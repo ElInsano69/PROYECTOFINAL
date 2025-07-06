@@ -161,7 +161,11 @@
         <ul>
           <!-- Menú con los apartados -->
           <li><a href="#" id="link-inicio" class="active">Inicio</a></li>
-          <li><a href="#" id="link-seccion-reemplazable">Sección Reemplazable</a></li>
+          <li><a href="#" id="link-apartado1">Apartado 1</a></li>
+          <li><a href="#" id="link-apartado2">Apartado 2</a></li>
+          <li><a href="#" id="link-apartado3">Apartado 3</a></li>
+          <li><a href="#" id="link-apartado4">Apartado 4</a></li>
+          <li><a href="#" id="link-apartado5">Apartado 5</a></li>
           <li><a href="#" id="logout-button">Cerrar sesión</a></li>
         </ul>
       </nav>
@@ -181,11 +185,43 @@
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
 
-      <!-- Sección Reemplazable -->
-      <section id="seccion-reemplazable-section" class="content-section">
+      <!-- Sección Apartado 1 -->
+      <section id="apartado1-section" class="content-section">
         <div class="welcome-text">
-            <p><strong>Sección Reemplazable</strong></p>
-            <p>Contenido específico para la sección reemplazable...</p>
+            <p><strong>Apartado 1</strong></p>
+            <p>Contenido específico para el Apartado 1...</p>
+        </div>
+      </section>
+
+      <!-- Sección Apartado 2 -->
+      <section id="apartado2-section" class="content-section">
+        <div class="welcome-text">
+            <p><strong>Apartado 2</strong></p>
+            <p>Contenido específico para el Apartado 2...</p>
+        </div>
+      </section>
+
+      <!-- Sección Apartado 3 -->
+      <section id="apartado3-section" class="content-section">
+        <div class="welcome-text">
+            <p><strong>Apartado 3</strong></p>
+            <p>Contenido específico para el Apartado 3...</p>
+        </div>
+      </section>
+
+      <!-- Sección Apartado 4 -->
+      <section id="apartado4-section" class="content-section">
+        <div class="welcome-text">
+            <p><strong>Apartado 4</strong></p>
+            <p>Contenido específico para el Apartado 4...</p>
+        </div>
+      </section>
+
+      <!-- Sección Apartado 5 -->
+      <section id="apartado5-section" class="content-section">
+        <div class="welcome-text">
+            <p><strong>Apartado 5</strong></p>
+            <p>Contenido específico para el Apartado 5...</p>
         </div>
       </section>
 
@@ -230,7 +266,11 @@
 
     // Event Listeners para los apartados
     document.getElementById('link-inicio').addEventListener('click', () => showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio')));
-    document.getElementById('link-seccion-reemplazable').addEventListener('click', () => showSection(document.getElementById('seccion-reemplazable-section'), document.getElementById('link-seccion-reemplazable')));
+    document.getElementById('link-apartado1').addEventListener('click', () => showSection(document.getElementById('apartado1-section'), document.getElementById('link-apartado1')));
+    document.getElementById('link-apartado2').addEventListener('click', () => showSection(document.getElementById('apartado2-section'), document.getElementById('link-apartado2')));
+    document.getElementById('link-apartado3').addEventListener('click', () => showSection(document.getElementById('apartado3-section'), document.getElementById('link-apartado3')));
+    document.getElementById('link-apartado4').addEventListener('click', () => showSection(document.getElementById('apartado4-section'), document.getElementById('link-apartado4')));
+    document.getElementById('link-apartado5').addEventListener('click', () => showSection(document.getElementById('apartado5-section'), document.getElementById('link-apartado5')));
 
     // Mostrar la página principal al inicio
     showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio'));
