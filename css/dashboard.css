@@ -52,28 +52,7 @@ body {
 
 /* Perfil de Usuario en la esquina superior derecha del global-header */
 .user-profile-widget {
-    position: relative;
-    cursor: pointer;
-    z-index: 10000; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar visibilidad y clicabilidad */
-}
-.user-profile-widget .user-initials {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    color: #002147;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: transform 0.2s ease-in-out;
-    /* Puedes añadir padding aquí si el área de toque sigue siendo un problema */
-    /* padding: 5px; */
-}
-.user-profile-widget .user-initials:hover {
-    transform: scale(1.05);
+    display: none; /* Oculta el círculo completamente en todas las pantallas */
 }
 
 /* Panel Desplegable del Perfil */
@@ -128,7 +107,6 @@ body {
     background-color: #c82333;
 }
 
-
 /* Contenedor principal del dashboard (Flexbox para sidebar y main content) */
 .dashboard-container {
     display: flex;
@@ -166,7 +144,6 @@ body {
     left: 0;
     z-index: 9998; /* Un Z-index alto para cuando está oculto y fuera del flujo, pero por debajo de elementos interactivos clave */
 }
-
 
 /* Ocultar el perfil y logo del sidebar ya que se movieron */
 .sidebar .user-profile, .sidebar .logo {
@@ -211,7 +188,6 @@ body {
     font-size: 1.5rem;
     z-index: 10000; /* Z-INDEX EXTREMADAMENTE ALTO para asegurar clicabilidad */
 }
-
 
 /* Contenido Principal (Main Content) */
 .main-content {
@@ -302,206 +278,20 @@ body {
 #users-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-#users-table tr:hover {
-    background-color: #e6e6e6;
-}
 
-/* Mensajes de error en la tabla */
-#users-error-message {
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
-    color: red;
-}
-
-/* ========================================= */
-/* Media Queries para Responsividad - dashboard.css */
-/* ========================================= */
-
-/* Para pantallas medianas (tablets en portrait o laptops pequeñas) */
-@media (max-width: 992px) {
-    .global-header {
-        height: 60px;
-        padding: 0 15px;
-    }
-    .global-header .header-left-section {
-        gap: 10px;
-    }
-    .global-header img {
-        height: 40px;
-    }
-    .global-header span {
-        font-size: 1.5rem;
-    }
-
-    .global-header .sidebar-toggle {
-        font-size: 1.5rem;
-    }
-    #sidebar-toggle-close {
-        font-size: 1.5rem;
-    }
-
-    .user-profile-widget .user-initials {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
-    }
-    .user-dropdown-panel {
-        min-width: 200px;
-        padding: 10px;
-    }
-
-    .sidebar {
-        width: 200px;
-        height: calc(100vh - 60px);
-    }
-    .sidebar nav ul li a {
-        font-size: 1rem;
-        padding: 10px 15px;
-    }
-
-    .main-content {
-        padding: 15px;
-    }
-    .section-header {
-        padding: 15px 20px;
-        margin-bottom: 25px;
-    }
-    .section-header h1 {
-        font-size: 1.6rem;
-    }
-
-    .card {
-        flex: 1 1 calc(50% - 30px);
-        min-width: 250px;
-    }
-}
-
-/* Para pantallas pequeñas (teléfonos y tablets, hasta 768px) */
+/* Responsive (Medios móviles) */
 @media (max-width: 768px) {
-    .global-header {
-        height: 50px;
-        padding: 0 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        position: fixed; /* Asegura que el header esté fijo en la parte superior */
+    /* Sidebar */
+    .sidebar {
         width: 100%;
-        top: 0;
-        left: 0;
-    }
-    .global-header .header-left-section {
-        gap: 8px;
-    }
-    .global-header img {
-        height: 35px;
-    }
-    .global-header span {
-        font-size: 1.3rem;
-    }
-
-    .global-header .sidebar-toggle {
-        font-size: 1.5rem;
-    }
-
-    /* OCULTAR CÍRCULO DEL PERFIL EN TELÉFONOS */
-    .user-profile-widget {
-        display: none; /* Oculta completamente el círculo y su panel en teléfonos */
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translateX(-250px);
-        height: 100vh;
-        padding-top: 60px; /* Dar espacio para el header fijo */
-        z-index: 9998; /* Un poco menos que el header, pero aún muy alto */
-        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        transform: translateX(-100%); /* Oculta el sidebar en móviles */
     }
     .sidebar.active {
-        transform: translateX(0);
+        transform: translateX(0); /* Muestra el sidebar en móviles */
     }
 
-    /* Ajuste para el main content para que no quede debajo del header fijo */
-    .dashboard-container {
-        padding-top: 50px; /* Altura del header en móvil */
-    }
-    .main-content {
-        padding: 10px;
-    }
-    .section-header {
-        padding: 10px 15px;
-        margin-bottom: 20px;
-    }
-    .section-header h1 {
-        font-size: 1.4rem;
-    }
-
-    .dashboard-cards-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    .card {
-        flex: 1 1 100%;
-        max-width: 95%;
-        min-width: unset;
-    }
-
-    #users-table {
-        min-width: 450px;
-    }
-    #users-table th, #users-table td {
-        font-size: 0.8rem;
-        padding: 7px;
-    }
-}
-
-/* Para pantallas muy pequeñas (teléfonos en modo portrait - menos de 480px) */
-@media (max-width: 480px) {
-    .global-header {
-        height: 45px;
-        padding: 0 8px;
-    }
-    .global-header .header-left-section {
-        gap: 5px;
-    }
-    .global-header img {
-        height: 30px;
-    }
-    .global-header span {
-        font-size: 1.1rem;
-        flex-shrink: 1;
-        min-width: 0;
-    }
-
-    .global-header .sidebar-toggle {
-        font-size: 1.3rem;
-    }
-
-    /* Ocultar el círculo del perfil también en esta media query */
+    /* Ocultar perfil de usuario en móviles */
     .user-profile-widget {
-        display: none;
-    }
-    .sidebar {
-        width: 220px;
-        transform: translateX(-220px);
-        padding-top: 50px; /* Ajuste para el header más pequeño */
-    }
-    .sidebar.active {
-        transform: translateX(0);
-    }
-    .dashboard-container {
-        padding-top: 45px; /* Altura del header en móvil muy pequeño */
-    }
-    .section-header h1 {
-        font-size: 1.2rem;
-    }
-    .content-section h2 {
-        font-size: 1.1rem;
-    }
-    #users-table {
-        min-width: 380px;
+        display: none; /* Oculta el círculo completamente en móviles */
     }
 }

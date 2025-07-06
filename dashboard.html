@@ -33,12 +33,12 @@
     .sidebar {
       background-color: var(--menu-bg-color);
       width: 250px;
-      height: 100vh; /* Altura completa de la ventana */
-      display: block; /* Asegura que siempre esté visible */
+      height: 100vh;
+      display: block;
       position: fixed;
       top: 0;
       left: 0;
-      overflow-y: auto; /* Permite el desplazamiento si el contenido es largo */
+      overflow-y: auto;
       transition: transform 0.3s ease;
     }
 
@@ -66,7 +66,7 @@
 
     /* Estilo para la parte del contenido principal */
     .main-content {
-      margin-left: 250px; /* Evita que el contenido se superponga con la sidebar */
+      margin-left: 250px;
       flex: 1;
       padding: 20px;
     }
@@ -108,10 +108,9 @@
     /* Estilos para dispositivos móviles */
     @media (max-width: 768px) {
       .main-content {
-        margin-left: 0; /* El contenido ocupa toda la pantalla */
+        margin-left: 0;
       }
 
-      /* Asegura que el botón de cerrar menú esté visible en móviles */
       .sidebar-toggle-close {
         display: block;
         font-size: 25px;
@@ -134,7 +133,8 @@
       <span>Fundación Kinal</span>
     </div>
 
-    <div class="user-profile-widget" id="user-profile-widget">
+    <!-- Eliminar el widget de usuario (el círculo) -->
+    <div class="user-profile-widget" id="user-profile-widget" style="display: none;">
       <div class="user-initials" id="user-initials"></div>
       <div class="user-dropdown-panel" id="user-dropdown-panel">
         <p><strong><span id="dropdown-user-name"></span></strong></p>
@@ -172,7 +172,7 @@
       <section id="dashboard-home-section" class="content-section active">
         <div class="welcome-text">
             <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC...</p>
+            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones...</p>
         </div>
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
