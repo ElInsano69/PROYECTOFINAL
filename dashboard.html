@@ -10,23 +10,23 @@
 <body>
 
   <header class="global-header">
-    <div class="header-left-section">
-      <div class="sidebar-toggle" id="sidebar-toggle-open">
-        <i class="fas fa-bars"></i>
+      <div class="header-left-section">
+          <div class="sidebar-toggle" id="sidebar-toggle-open">
+              <i class="fas fa-bars"></i>
+          </div>
+          <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+          <span>Fundación Kinal</span>
       </div>
-      <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
-      <span>Fundación Kinal</span>
-    </div>
 
-    <div class="user-profile-widget" id="user-profile-widget">
-      <div class="user-initials" id="user-initials"></div>
-      <div class="user-dropdown-panel" id="user-dropdown-panel">
-        <p><strong><span id="dropdown-user-name"></span></strong></p>
-        <p><span id="dropdown-user-email"></span></p>
-        <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
-        <button id="dropdown-logout-button">Cerrar sesión</button>
+      <div class="user-profile-widget" id="user-profile-widget">
+        <div class="user-initials" id="user-initials"></div>
+        <div class="user-dropdown-panel" id="user-dropdown-panel">
+          <p><strong><span id="dropdown-user-name"></span></strong></p>
+          <p><span id="dropdown-user-email"></span></p>
+          <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
+          <button id="dropdown-logout-button">Cerrar sesión</button>
+        </div>
       </div>
-    </div>
   </header>
 
   <div class="dashboard-container">
@@ -54,18 +54,17 @@
         <h2>Panel Principal</h2>
         <p>Aquí puedes ver un resumen de tus actividades.</p>
 
-        <!-- Texto al principio -->
+        <!-- Texto de bienvenida -->
         <div class="welcome-text">
-          <p><strong>Bienvenida</strong></p>
-          <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. Los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
-          <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
-          <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
+            <p><strong>Bienvenida</strong></p>
+            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. Los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
+            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
+            <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
         </div>
 
         <!-- Imagen al final -->
-        <img src="img/it-essentials.JPG" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <img src="img/it-essentials.JPG" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
 
-        <!-- Resto del contenido -->
         <div class="dashboard-cards-grid">
           <div class="card">
             <h3>Total de Estudiantes</h3>
@@ -125,9 +124,6 @@
     const usersTableBody = document.querySelector('#users-table tbody');
     const usersErrorMessage = document.getElementById('users-error-message');
 
-    // URL de tu backend
-    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
-
     // Función para mostrar la sección correcta del dashboard
     function showSection(sectionToShow, activeLink) {
         document.querySelectorAll('.content-section').forEach(section => {
@@ -162,7 +158,7 @@
         }
 
         try {
-            const response = await fetch(`${BACKEND_URL}/users`, {
+            const response = await fetch('https://proyectoexpkinal.onrender.com/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -191,51 +187,35 @@
                 usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
             }
         } catch (error) {
-            usersErrorMessage.textContent = 'Hubo un problema al cargar los usuarios.';
+            usersErrorMessage.textContent = 'No se pudo conectar con el servidor para obtener usuarios.';
         }
     }
 
-    // Evento para abrir el sidebar
-    sidebarToggleOpen.addEventListener('click', () => {
-        sidebar.classList.add('active');
-    });
-
-    // Evento para cerrar el sidebar
-    sidebarToggleClose.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-    });
-
-    // Manejar el perfil del usuario
-    const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
-    if (usuarioActual) {
-        userInitials.textContent = usuarioActual.nombre.charAt(0).toUpperCase();
-        dropdownUserName.textContent = `${usuarioActual.nombre} ${usuarioActual.apellido}`;
+    // Inicialización
+    if (localStorage.getItem('usuario_actual')) {
+        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
+        userInitials.textContent = usuarioActual.nombre[0] + usuarioActual.apellido[0];
+        dropdownUserName.textContent = usuarioActual.nombre + ' ' + usuarioActual.apellido;
         dropdownUserEmail.textContent = usuarioActual.email;
         dropdownUserRole.textContent = usuarioActual.rol;
+        
+        if (usuarioActual.rol === 'admin') {
+            adminLink.style.display = 'block';
+        }
     }
 
-    // Cerrar sesión
-    dropdownLogoutButton.addEventListener('click', () => {
-        localStorage.removeItem('usuario_actual');
-        window.location.href = 'login.html';
-    });
+    // Event Listeners
+    sidebarToggleOpen.addEventListener('click', () => sidebar.classList.add('active'));
+    sidebarToggleClose.addEventListener('click', () => sidebar.classList.remove('active'));
 
-    // Navegar entre las secciones
     linkDashboard.addEventListener('click', () => showSection(dashboardHomeSection, linkDashboard));
     linkAdminUsers.addEventListener('click', () => {
-        showSection(adminUsersSection, linkAdminUsers);
         loadUsers();
+        showSection(adminUsersSection, linkAdminUsers);
     });
 
-    // Si el usuario es administrador, mostrar enlace para administrar usuarios
-    if (usuarioActual && usuarioActual.rol === 'admin') {
-        adminLink.style.display = 'block';
-    }
-
-    // Inicializar sección activa al cargar la página
+    // Muestra la página principal al inicio
     showSection(dashboardHomeSection, linkDashboard);
-
   </script>
-
 </body>
 </html>
