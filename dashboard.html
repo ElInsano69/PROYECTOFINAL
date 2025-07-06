@@ -39,6 +39,7 @@
       top: 0;
       left: 0;
       overflow-y: auto;
+      transition: transform 0.3s ease;
     }
 
     .sidebar nav ul {
@@ -110,12 +111,36 @@
         margin-left: 0;
       }
 
-      .sidebar-toggle-close {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar-toggle {
         display: block;
         font-size: 25px;
         color: var(--text-color);
         cursor: pointer;
         padding: 10px;
+      }
+
+      #sidebar-toggle-open {
+        display: block;
+      }
+
+      #sidebar-toggle-close {
+        display: none;
+      }
+
+      .sidebar.active #sidebar-toggle-close {
+        display: block;
+      }
+
+      .sidebar.active #sidebar-toggle-open {
+        display: none;
       }
     }
   </style>
@@ -250,10 +275,10 @@
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('usuario_actual');
         localStorage.removeItem('logueado');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html'; 
     });
 
-    // Event listeners para cambiar entre secciones
+    // Event Listeners para los apartados
     document.getElementById('link-inicio').addEventListener('click', () => showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio')));
     document.getElementById('link-apartado1').addEventListener('click', () => showSection(document.getElementById('apartado1-section'), document.getElementById('link-apartado1')));
     document.getElementById('link-apartado2').addEventListener('click', () => showSection(document.getElementById('apartado2-section'), document.getElementById('link-apartado2')));
@@ -261,8 +286,12 @@
     document.getElementById('link-apartado4').addEventListener('click', () => showSection(document.getElementById('apartado4-section'), document.getElementById('link-apartado4')));
     document.getElementById('link-apartado5').addEventListener('click', () => showSection(document.getElementById('apartado5-section'), document.getElementById('link-apartado5')));
 
-    // Mostrar la sección por defecto (Inicio)
+    // Mostrar la página principal al inicio
     showSection(document.getElementById('inicio-section'), document.getElementById('link-inicio'));
+
+    // Event Listeners para abrir/cerrar el menú lateral
+    sidebarToggleOpen.addEventListener('click', () => sidebar.classList.add('active'));
+    sidebarToggleClose.addEventListener('click', () => sidebar.classList.remove('active'));
   </script>
 
 </body>
