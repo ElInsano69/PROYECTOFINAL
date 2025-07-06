@@ -7,13 +7,21 @@
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* Colores personalizados (este azul es el que se usará para todos los elementos) */
+    :root {
+      --main-blue: #002147; /* Azul que me proporcionaste */
+      --menu-bg-color: #2c3e50;
+      --text-color: white;
+      --text-hover-color: #2980b9;
+      --btn-bg-color: #2980b9;
+    }
+
     /* Agregar estilos CSS para que se vea bien en PC */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
-      background-color: #ecf0f1; /* Fondo claro */
     }
 
     .dashboard-container {
@@ -23,18 +31,19 @@
 
     /* Estilo para la barra lateral */
     .sidebar {
-      background-color: #3498db; /* Azul personalizado */
+      background-color: var(--menu-bg-color);
       width: 250px;
       height: 100vh;
+      display: none; /* Ocultamos por defecto */
+      transition: transform 0.3s ease;
       position: fixed;
       top: 0;
       left: 0;
-      transform: translateX(-250px); /* Inicialmente oculto */
-      transition: transform 0.3s ease-in-out;
     }
 
     .sidebar.active {
-      transform: translateX(0); /* Aparece cuando se activa */
+      display: block;
+      transform: translateX(0);
     }
 
     .sidebar nav ul {
@@ -45,18 +54,18 @@
 
     .sidebar nav ul li {
       padding: 15px;
-      border-bottom: 1px solid #2980b9; /* Gris oscuro */
+      border-bottom: 1px solid #34495e;
     }
 
     .sidebar nav ul li a {
-      color: white; /* Blanco */
+      color: var(--text-color);
       text-decoration: none;
       font-size: 18px;
       display: block;
     }
 
     .sidebar nav ul li a:hover {
-      background-color: #1abc9c; /* Azul más claro para el hover */
+      background-color: var(--main-blue); /* Azul proporcionado */
     }
 
     /* Estilo para la parte del contenido principal */
@@ -80,8 +89,8 @@
 
     /* Estilos para la cabecera */
     .global-header {
-      background-color: #2980b9; /* Azul claro */
-      color: white;
+      background-color: var(--main-blue); /* Azul proporcionado */
+      color: var(--text-color);
       padding: 10px 20px;
       display: flex;
       justify-content: space-between;
@@ -90,6 +99,19 @@
 
     .global-header img {
       max-width: 150px;
+    }
+
+    /* Botón de cerrar sesión */
+    #logout-button {
+      background-color: var(--main-blue); /* Azul proporcionado */
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #logout-button:hover {
+      background-color: #1abc9c;
     }
 
     /* Asegurarse de que todo el contenido sea visible y se ajuste bien en pantallas grandes */
@@ -102,8 +124,8 @@
         margin-left: 250px;
       }
 
-      .sidebar-toggle-close {
-        display: block; /* Mostrar X en PC */
+      .dashboard-container {
+        display: flex;
       }
     }
 
@@ -112,30 +134,13 @@
         margin-left: 0;
       }
 
-      .sidebar {
-        transform: translateX(-250px);
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      /* Estilo de la "X" en móvil */
-      .sidebar .sidebar-toggle {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 24px;
-        color: white;
-        cursor: pointer;
-      }
-
+      /* Asegurar que el botón de cerrar menú esté visible en móviles */
       .sidebar-toggle-close {
-        display: block; /* Mostrar X en móviles */
-      }
-
-      .global-header .sidebar-toggle {
         display: block;
+        font-size: 25px;
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 10px;
       }
     }
 
@@ -164,9 +169,8 @@
 
   <div class="dashboard-container">
     <aside class="sidebar" id="sidebar">
-      <!-- Botón para cerrar el menú en móviles y PC -->
-      <div class="sidebar-toggle-close" id="sidebar-toggle-close">
-        <i class="fas fa-times"></i> <!-- Ícono de "X" -->
+      <div class="sidebar-toggle" id="sidebar-toggle-close">
+        <i class="fas fa-times"></i>
       </div>
       <nav>
         <ul>
@@ -185,8 +189,7 @@
       <section id="dashboard-home-section" class="content-section active">
         <div class="welcome-text">
             <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos...</p>
-            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo...</p>
+            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones...</p>
         </div>
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
@@ -227,7 +230,7 @@
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('usuario_actual');
         localStorage.removeItem('logueado');
-        window.location.href = 'index.html'; // Redirigir a la página de login
+        window.location.href = 'login.html'; // Redirigir a la página de login
     });
 
     // Mostrar la página principal al inicio
@@ -236,16 +239,6 @@
     // Event Listeners
     sidebarToggleOpen.addEventListener('click', () => sidebar.classList.add('active'));
     sidebarToggleClose.addEventListener('click', () => sidebar.classList.remove('active'));
-
-    // Cerrar el menú cuando se cambia de sección
-    const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          sidebar.classList.remove('active');
-        }
-      });
-    });
   </script>
 </body>
 </html>
