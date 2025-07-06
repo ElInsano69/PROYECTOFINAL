@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Colores personalizados (este azul es el que se usará para todos los elementos) */
+    /* Colores personalizados */
     :root {
-      --main-blue: #002147; /* Azul que me proporcionaste */
+      --main-blue: #002147;
       --menu-bg-color: #2c3e50;
       --text-color: white;
       --text-hover-color: #2980b9;
       --btn-bg-color: #2980b9;
     }
 
-    /* Agregar estilos CSS para que se vea bien en PC */
+    /* Estilo para el body */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -33,17 +33,13 @@
     .sidebar {
       background-color: var(--menu-bg-color);
       width: 250px;
-      height: 100vh;
-      display: none; /* Ocultamos por defecto */
-      transition: transform 0.3s ease;
+      height: 100vh; /* Altura completa de la ventana */
+      display: block; /* Asegura que siempre esté visible */
       position: fixed;
       top: 0;
       left: 0;
-    }
-
-    .sidebar.active {
-      display: block;
-      transform: translateX(0);
+      overflow-y: auto; /* Permite el desplazamiento si el contenido es largo */
+      transition: transform 0.3s ease;
     }
 
     .sidebar nav ul {
@@ -65,12 +61,12 @@
     }
 
     .sidebar nav ul li a:hover {
-      background-color: var(--main-blue); /* Azul proporcionado */
+      background-color: var(--main-blue);
     }
 
     /* Estilo para la parte del contenido principal */
     .main-content {
-      margin-left: 250px; /* Para que el contenido no se superponga a la sidebar */
+      margin-left: 250px; /* Evita que el contenido se superponga con la sidebar */
       flex: 1;
       padding: 20px;
     }
@@ -79,17 +75,13 @@
       margin-bottom: 20px;
     }
 
-    .content-section {
-      display: none;
-    }
-
-    .content-section.active {
-      display: block;
+    .welcome-text {
+      margin-bottom: 20px;
     }
 
     /* Estilos para la cabecera */
     .global-header {
-      background-color: var(--main-blue); /* Azul proporcionado */
+      background-color: var(--main-blue);
       color: var(--text-color);
       padding: 10px 20px;
       display: flex;
@@ -101,9 +93,8 @@
       max-width: 150px;
     }
 
-    /* Botón de cerrar sesión */
     #logout-button {
-      background-color: var(--main-blue); /* Azul proporcionado */
+      background-color: var(--main-blue);
       color: white;
       border: none;
       padding: 10px;
@@ -114,27 +105,13 @@
       background-color: #1abc9c;
     }
 
-    /* Asegurarse de que todo el contenido sea visible y se ajuste bien en pantallas grandes */
-    @media (min-width: 768px) {
-      .sidebar {
-        display: block;
-      }
-
-      .main-content {
-        margin-left: 250px;
-      }
-
-      .dashboard-container {
-        display: flex;
-      }
-    }
-
+    /* Estilos para dispositivos móviles */
     @media (max-width: 768px) {
       .main-content {
-        margin-left: 0;
+        margin-left: 0; /* El contenido ocupa toda la pantalla */
       }
 
-      /* Asegurar que el botón de cerrar menú esté visible en móviles */
+      /* Asegura que el botón de cerrar menú esté visible en móviles */
       .sidebar-toggle-close {
         display: block;
         font-size: 25px;
@@ -149,22 +126,22 @@
 <body>
 
   <header class="global-header">
-      <div class="header-left-section">
-          <div class="sidebar-toggle" id="sidebar-toggle-open">
-              <i class="fas fa-bars"></i>
-          </div>
-          <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
-          <span>Fundación Kinal</span>
+    <div class="header-left-section">
+      <div class="sidebar-toggle" id="sidebar-toggle-open">
+        <i class="fas fa-bars"></i>
       </div>
+      <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+      <span>Fundación Kinal</span>
+    </div>
 
-      <div class="user-profile-widget" id="user-profile-widget">
-        <div class="user-initials" id="user-initials"></div>
-        <div class="user-dropdown-panel" id="user-dropdown-panel">
-          <p><strong><span id="dropdown-user-name"></span></strong></p>
-          <p><span id="dropdown-user-email"></span></p>
-          <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
-        </div>
+    <div class="user-profile-widget" id="user-profile-widget">
+      <div class="user-initials" id="user-initials"></div>
+      <div class="user-dropdown-panel" id="user-dropdown-panel">
+        <p><strong><span id="dropdown-user-name"></span></strong></p>
+        <p><span id="dropdown-user-email"></span></p>
+        <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
       </div>
+    </div>
   </header>
 
   <div class="dashboard-container">
@@ -195,11 +172,7 @@
       <section id="dashboard-home-section" class="content-section active">
         <div class="welcome-text">
             <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. Los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
-
-            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
-
-            <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
+            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC...</p>
         </div>
         <img src="img/it-essentials.jpg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
       </section>
@@ -208,7 +181,7 @@
       <section id="apartado1-section" class="content-section">
         <div class="welcome-text">
             <p><strong>Apartado 1</strong></p>
-            <p>Contenido para el apartado 1...</p>
+            <p>Contenido específico para el Apartado 1...</p>
         </div>
       </section>
 
@@ -252,7 +225,7 @@
     const sidebar = document.getElementById('sidebar');
     const sidebarToggleOpen = document.getElementById('sidebar-toggle-open');
     const sidebarToggleClose = document.getElementById('sidebar-toggle-close');
-    const logoutButton = document.getElementById('logout-button'); // Botón de cerrar sesión en la barra lateral
+    const logoutButton = document.getElementById('logout-button'); 
 
     // Función para mostrar la sección correcta del dashboard
     function showSection(sectionToShow, activeLink) {
@@ -280,7 +253,7 @@
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('usuario_actual');
         localStorage.removeItem('logueado');
-        window.location.href = 'index.html'; // Redirigir a la página de login
+        window.location.href = 'index.html'; 
     });
 
     // Event Listeners para los apartados
