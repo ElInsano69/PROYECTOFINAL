@@ -1,305 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Fundación Kinal</title>
-  <link rel="stylesheet" href="css/dashboard.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Fundación Kinal</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-  <header class="global-header">
-      <div class="header-left-section">
-          <div class="sidebar-toggle" id="sidebar-toggle-open">
-              <i class="fas fa-bars"></i>
-          </div>
-          <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
-          <span>Fundación Kinal</span>
-      </div>
+  <header class="global-header">
+    <div class="header-left-section">
+      <div class="sidebar-toggle" id="sidebar-toggle-open">
+        <i class="fas fa-bars"></i>
+      </div>
+      <img src="img/kinal-logo-2.png" alt="Logo Fundación Kinal" />
+      <span>Fundación Kinal</span>
+    </div>
 
-      <div class="user-profile-widget" id="user-profile-widget">
-        <div class="user-initials" id="user-initials"></div>
-        <div class="user-dropdown-panel" id="user-dropdown-panel">
-          <p><strong><span id="dropdown-user-name"></span></strong></p>
-          <p><span id="dropdown-user-email"></span></p>
-          <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
-          <button id="dropdown-logout-button">Cerrar sesión</button>
-        </div>
-      </div>
-  </header>
+    <div class="user-profile-widget" id="user-profile-widget">
+      <div class="user-initials" id="user-initials"></div>
+      <div class="user-dropdown-panel" id="user-dropdown-panel">
+        <p><strong><span id="dropdown-user-name"></span></strong></p>
+        <p><span id="dropdown-user-email"></span></p>
+        <p><small>Rol: <span id="dropdown-user-role"></span></small></p>
+        <button id="dropdown-logout-button">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
 
-  <div class="dashboard-container">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-toggle" id="sidebar-toggle-close">
-        <i class="fas fa-times"></i>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
-          <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
-          <li><a href="#">Reportes</a></li>
-          <li><a href="#">Configuración</a></li>
-          <li><a href="#" id="logout-button">Cerrar sesión</a></li>
-        </ul>
-      </nav>
-    </aside>
+  <div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-toggle" id="sidebar-toggle-close">
+        <i class="fas fa-times"></i>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" id="link-dashboard" class="active">Inicio</a></li>
+          <li id="admin-link" style="display: none;"><a href="#" id="link-admin-users">Administrar Usuarios</a></li>
+          <li><a href="#">Reportes</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#" id="logout-button">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <main class="main-content">
-      <header class="section-header">
-        <h1>Bienvenido al Dashboard</h1>
-      </header>
+    <main class="main-content">
+      <header class="section-header">
+        <h1>Bienvenido al Dashboard</h1>
+      </header>
 
-      <section id="dashboard-home-section" class="content-section active">
-        <h2>Panel Principal</h2>
-        <p>Aquí puedes ver un resumen de tus actividades.</p>
+      <section id="dashboard-home-section" class="content-section active">
+        <h2>Panel Principal</h2>
+        <p>Aquí puedes ver un resumen de tus actividades.</p>
 
-        <img src="https://i.imgur.com/TuwB0E5.jpeg" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+        <!-- Texto al principio -->
         <div class="welcome-text">
-            <p><strong>Bienvenida</strong></p>
-            <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
-            <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
-            <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
+          <p><strong>Bienvenida</strong></p>
+          <p>Las personas se preparan para trabajar en los campos de tecnología de la información mediante la obtención de certificaciones, la búsqueda de educación formal y la experiencia a través de pasantías y empleos. En este capítulo, aprenderá sobre todos los componentes que conforman una PC, comenzando por el gabinete en el que se alojan todos los componentes internos. Los equipos, los componentes del equipo y los periféricos del equipo contienen riesgos que pueden causar lesiones graves. Por lo tanto, este capítulo comienza con pautas de seguridad que debe seguir para evitar incendios eléctricos, lesiones y anomalías mientras trabaja dentro de un equipo. También aprenderá sobre las descargas electrostáticas (ESD) y cómo pueden dañar los equipos de computación si no se descargan correctamente.</p>
+          <p>En este capítulo se presentan todos los componentes que se incluyen en el gabinete de un equipo, iniciando por la placa base. Aprenderá sobre todos los componentes internos que están conectados a la placa base, incluida la fuente de alimentación, la unidad de procesamiento central (CPU), la memoria de acceso aleatorio (RAM), las tarjetas de expansión y las unidades de almacenamiento. También aprenderá sobre los conectores, los puertos y los cables que conectan físicamente los dispositivos a la placa base.</p>
+          <p>Es importante no solo aprender sobre los componentes del equipo, sino también crear destrezas prácticas. En este capítulo, desarmará un equipo para familiarizarse con todos los componentes y la forma en que están conectados.</p>
         </div>
-                <div class="dashboard-cards-grid">
-          <div class="card">
-            <h3>Total de Estudiantes</h3>
-            <p>1200</p>
-          </div>
-          <div class="card">
-            <h3>Cursos Activos</h3>
-            <p>45</p>
-          </div>
-        </div>
-      </section>
 
-      <section id="admin-users-section" class="content-section" style="display: none;">
-        <h2>Usuarios Registrados</h2>
-        <div class="users-table-container">
-          <table id="users-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Fecha Registro</th>
-              </tr>
-            </thead>
-            <tbody>
-              </tbody>
-          </table>
-          <p id="users-error-message" style="color: red; text-align: center; margin-top: 15px;"></p>
-        </div>
-      </section>
+        <!-- Imagen al final -->
+        <img src="img/it-essentials.JPG" alt="Tecnología de la Información" style="max-width: 100%; height: auto; margin-top: 20px;">
 
-    </main>
-  </div>
+        <!-- Resto del contenido -->
+        <div class="dashboard-cards-grid">
+          <div class="card">
+            <h3>Total de Estudiantes</h3>
+            <p>1200</p>
+          </div>
+          <div class="card">
+            <h3>Cursos Activos</h3>
+            <p>45</p>
+          </div>
+        </div>
+      </section>
 
-  <script>
-    // Referencias a elementos UI
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggleOpen = document.getElementById('sidebar-toggle-open');
-    const sidebarToggleClose = document.getElementById('sidebar-toggle-close');
+      <section id="admin-users-section" class="content-section" style="display: none;">
+        <h2>Usuarios Registrados</h2>
+        <div class="users-table-container">
+          <table id="users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Fecha Registro</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <p id="users-error-message" style="color: red; text-align: center; margin-top: 15px;"></p>
+        </div>
+      </section>
 
-    const userProfileWidget = document.getElementById('user-profile-widget');
-    const userInitials = document.getElementById('user-initials');
-    const userDropdownPanel = document.getElementById('user-dropdown-panel');
-    const dropdownUserName = document.getElementById('dropdown-user-name');
-    const dropdownUserEmail = document.getElementById('dropdown-user-email');
-    const dropdownUserRole = document.getElementById('dropdown-user-role');
-    const dropdownLogoutButton = document.getElementById('dropdown-logout-button');
+    </main>
+  </div>
 
-    const linkDashboard = document.getElementById('link-dashboard');
-    const linkAdminUsers = document.getElementById('link-admin-users');
-    const adminLink = document.getElementById('admin-link'); 
+  <script>
+    // Referencias a elementos UI
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggleOpen = document.getElementById('sidebar-toggle-open');
+    const sidebarToggleClose = document.getElementById('sidebar-toggle-close');
 
-    const dashboardHomeSection = document.getElementById('dashboard-home-section');
-    const adminUsersSection = document.getElementById('admin-users-section');
-    const usersTableBody = document.querySelector('#users-table tbody');
-    const usersErrorMessage = document.getElementById('users-error-message');
+    const userProfileWidget = document.getElementById('user-profile-widget');
+    const userInitials = document.getElementById('user-initials');
+    const userDropdownPanel = document.getElementById('user-dropdown-panel');
+    const dropdownUserName = document.getElementById('dropdown-user-name');
+    const dropdownUserEmail = document.getElementById('dropdown-user-email');
+    const dropdownUserRole = document.getElementById('dropdown-user-role');
+    const dropdownLogoutButton = document.getElementById('dropdown-logout-button');
 
-    // URL de tu backend
-    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
+    const linkDashboard = document.getElementById('link-dashboard');
+    const linkAdminUsers = document.getElementById('link-admin-users');
+    const adminLink = document.getElementById('admin-link'); 
 
-    // Función para mostrar la sección correcta del dashboard
-    function showSection(sectionToShow, activeLink) {
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.display = 'none';
-            section.classList.remove('active');
-        });
-        sectionToShow.style.display = 'block';
-        sectionToShow.classList.add('active');
+    const dashboardHomeSection = document.getElementById('dashboard-home-section');
+    const adminUsersSection = document.getElementById('admin-users-section');
+    const usersTableBody = document.querySelector('#users-table tbody');
+    const usersErrorMessage = document.getElementById('users-error-message');
 
-        document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
-            link.classList.remove('active');
-        });
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
+    // URL de tu backend
+    const BACKEND_URL = 'https://proyectoexpkinal.onrender.com/api'; 
 
-        // Cierra el sidebar en móviles después de seleccionar una opción
-        if (window.innerWidth <= 768) { 
-            sidebar.classList.remove('active');
-        }
-    }
+    // Función para mostrar la sección correcta del dashboard
+    function showSection(sectionToShow, activeLink) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+            section.classList.remove('active');
+        });
+        sectionToShow.style.display = 'block';
+        sectionToShow.classList.add('active');
 
-    // Función para cargar usuarios desde el backend (para administradores)
-    async function loadUsers() {
-        usersTableBody.innerHTML = '';
-        usersErrorMessage.textContent = '';
+        document.querySelectorAll('.sidebar nav ul li a').forEach(link => {
+            link.classList.remove('active');
+        });
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
 
-        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
-        if (!usuarioActual || usuarioActual.rol !== 'admin') {
-            usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
-            return;
-        }
+        // Cierra el sidebar en móviles después de seleccionar una opción
+        if (window.innerWidth <= 768) { 
+            sidebar.classList.remove('active');
+        }
+    }
 
-        try {
-            const response = await fetch(`${BACKEND_URL}/users`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userEmail: usuarioActual.email })
-            });
+    // Función para cargar usuarios desde el backend (para administradores)
+    async function loadUsers() {
+        usersTableBody.innerHTML = '';
+        usersErrorMessage.textContent = '';
 
-            const data = await response.json();
+        const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
+        if (!usuarioActual || usuarioActual.rol !== 'admin') {
+            usersErrorMessage.textContent = 'No tienes permisos para ver esta información.';
+            return;
+        }
 
-            if (response.ok) {
-                if (data.users && data.users.length > 0) {
-                    data.users.forEach(user => {
-                        const row = usersTableBody.insertRow();
-                        row.insertCell(0).textContent = user.id;
-                        row.insertCell(1).textContent = user.nombre;
-                        row.insertCell(2).textContent = user.apellido;
-                        row.insertCell(3).textContent = user.email;
-                        row.insertCell(4).textContent = user.rol;
-                        const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
-                        row.insertCell(5).textContent = createdAt;
-                    });
-                } else {
-                    usersErrorMessage.textContent = 'No hay usuarios registrados.';
-                }
-            } else {
-                usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
-            }
-        } catch (error) {
-            console.error('Error al obtener usuarios:', error);
-            usersErrorMessage.textContent = 'No se pudo conectar con el servidor para obtener usuarios.';
-        }
-    }
+        try {
+            const response = await fetch(`${BACKEND_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userEmail: usuarioActual.email })
+            });
 
-    // --- Event Listeners ---
+            const data = await response.json();
 
-    // Navegación principal del sidebar
-    linkDashboard.addEventListener('click', (e) => {
-        e.preventDefault();
-        showSection(dashboardHomeSection, linkDashboard);
-    });
+            if (response.ok) {
+                if (data.users && data.users.length > 0) {
+                    data.users.forEach(user => {
+                        const row = usersTableBody.insertRow();
+                        row.insertCell(0).textContent = user.id;
+                        row.insertCell(1).textContent = user.nombre;
+                        row.insertCell(2).textContent = user.apellido;
+                        row.insertCell(3).textContent = user.email;
+                        row.insertCell(4).textContent = user.rol;
+                        const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A';
+                        row.insertCell(5).textContent = createdAt;
+                    });
+                } else {
+                    usersErrorMessage.textContent = 'No hay usuarios registrados.';
+                }
+            } else {
+                usersErrorMessage.textContent = data.message || 'Error al cargar usuarios.';
+            }
+        } catch (error) {
+            usersErrorMessage.textContent = 'Hubo un problema al cargar los usuarios.';
+        }
+    }
 
-    if (linkAdminUsers) {
-        linkAdminUsers.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(adminUsersSection, linkAdminUsers);
-            loadUsers(); 
-        });
-    }
+    // Evento para abrir el sidebar
+    sidebarToggleOpen.addEventListener('click', () => {
+        sidebar.classList.add('active');
+    });
 
-    // Botón de cerrar sesión
-    const performLogout = () => {
-        localStorage.removeItem('logueado');
-        localStorage.removeItem('usuario_actual');
-        window.location.href = 'index.html';
-    };
-    // El botón de "Cerrar sesión" en el sidebar
-    document.getElementById('logout-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        performLogout();
-    });
-    // El botón de "Cerrar sesión" en el panel desplegable del perfil
-    dropdownLogoutButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        performLogout();
-    });
+    // Evento para cerrar el sidebar
+    sidebarToggleClose.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+    });
 
+    // Manejar el perfil del usuario
+    const usuarioActual = JSON.parse(localStorage.getItem('usuario_actual'));
+    if (usuarioActual) {
+        userInitials.textContent = usuarioActual.nombre.charAt(0).toUpperCase();
+        dropdownUserName.textContent = `${usuarioActual.nombre} ${usuarioActual.apellido}`;
+        dropdownUserEmail.textContent = usuarioActual.email;
+        dropdownUserRole.textContent = usuarioActual.rol;
+    }
 
-    // Lógica para el panel desplegable del perfil de usuario
-    if (userProfileWidget && userDropdownPanel) {
-        userProfileWidget.addEventListener('click', (event) => {
-            console.log("Clic en widget de perfil detectado!"); // Para depuración
-            event.stopPropagation(); // Evita que el clic se propague al documento
-            userDropdownPanel.classList.toggle('show');
-        });
+    // Cerrar sesión
+    dropdownLogoutButton.addEventListener('click', () => {
+        localStorage.removeItem('usuario_actual');
+        window.location.href = 'login.html';
+    });
 
-        // Cierra el panel desplegable si se hace clic fuera de él
-        document.addEventListener('click', (event) => {
-            if (!userProfileWidget.contains(event.target) && userDropdownPanel.classList.contains('show')) {
-                userDropdownPanel.classList.remove('show');
-                console.log("Cerrando panel de perfil por clic fuera"); // Para depuración
-            }
-        });
-    } else {
-        console.warn("Elementos del perfil de usuario no encontrados. El widget o el dropdown podrían faltar en el HTML.");
-    }
+    // Navegar entre las secciones
+    linkDashboard.addEventListener('click', () => showSection(dashboardHomeSection, linkDashboard));
+    linkAdminUsers.addEventListener('click', () => {
+        showSection(adminUsersSection, linkAdminUsers);
+        loadUsers();
+    });
 
-    // Lógica para abrir/cerrar el sidebar
-    if (sidebar && sidebarToggleOpen && sidebarToggleClose) {
-        sidebarToggleOpen.addEventListener('click', () => {
-            console.log("Abrir sidebar clic detectado!"); // Para depuración
-            sidebar.classList.add('active');
-        });
+    // Si el usuario es administrador, mostrar enlace para administrar usuarios
+    if (usuarioActual && usuarioActual.rol === 'admin') {
+        adminLink.style.display = 'block';
+    }
 
-        sidebarToggleClose.addEventListener('click', () => {
-            console.log("Cerrar sidebar clic detectado!"); // Para depuración
-            sidebar.classList.remove('active');
-        });
-    } else {
-        console.warn("Elementos del sidebar toggle no encontrados. El sidebar o los botones toggle podrían faltar en el HTML.");
-    }
+    // Inicializar sección activa al cargar la página
+    showSection(dashboardHomeSection, linkDashboard);
 
-
-    // Lógica al cargar la página (DOMContentLoaded)
-    document.addEventListener('DOMContentLoaded', () => {
-        const usuario = JSON.parse(localStorage.getItem('usuario_actual'));
-        if (usuario && localStorage.getItem('logueado') === 'si') {
-            // Actualizar información del perfil en el widget y el dropdown
-            if (userInitials) {
-                userInitials.textContent = (usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '') +
-                                           (usuario.apellido ? usuario.apellido.charAt(0).toUpperCase() : '');
-                if (!userInitials.textContent) userInitials.textContent = 'U';
-            }
-            if (dropdownUserName) dropdownUserName.textContent = `${usuario.nombre} ${usuario.apellido || ''}`;
-            if (dropdownUserEmail) dropdownUserEmail.textContent = usuario.email;
-            if (dropdownUserRole) dropdownUserRole.textContent = usuario.rol;
-
-            // Mostrar el enlace de admin si el rol es 'admin'
-            if (adminLink) {
-                if (usuario.rol === 'admin') {
-                    adminLink.style.display = 'block';
-                } else {
-                    adminLink.style.display = 'none';
-                }
-            }
-
-            // Por defecto, mostrar la sección de inicio
-            showSection(dashboardHomeSection, linkDashboard);
-
-            // En PC, el sidebar está visible por defecto, en móvil oculto
-            if (sidebar) {
-                if (window.innerWidth > 768) {
-                    sidebar.classList.add('active'); // Mantenerlo "activo" (visible)
-                } else {
-                    sidebar.classList.remove('active'); // Ocultar en móvil
-                }
-            }
-
-        } else {
-            window.location.href = 'index.html';
-        }
-    });
-  </script>
+  </script>
 
 </body>
 </html>
